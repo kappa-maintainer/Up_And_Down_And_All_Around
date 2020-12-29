@@ -26,7 +26,7 @@ public interface IModItem<T extends Item & IModItem<T>> extends IModObject, IMod
     @Override
     default void register(IForgeRegistry<Item> registry) {
         T cast = this.getItem();
-        cast.setUnlocalizedName(this.getModID() + "." + this.getModObjectName());
+        cast.setTranslationKey(this.getModID() + "." + this.getModObjectName());
         cast.setRegistryName(new ResourceLocation(this.getModID(), this.getModObjectName()));
         CreativeTabs creativeTab = this.getModCreativeTab();
         if (creativeTab != null) {

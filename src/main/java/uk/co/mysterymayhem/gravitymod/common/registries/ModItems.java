@@ -61,7 +61,7 @@ public class ModItems extends AbstractItemRegistry<IGravityModItem<?>, ArrayList
     static {
         UP_AND_DOWN_CREATIVE_TAB = new CreativeTabs(GravityMod.MOD_ID) {
             @Override
-            public ItemStack getTabIconItem() {
+            public ItemStack createIcon() {
                 // TODO: Replace with getting static ItemStack reference
                 return new ItemStack(creativeTabIcon);
             }
@@ -80,7 +80,7 @@ public class ModItems extends AbstractItemRegistry<IGravityModItem<?>, ArrayList
         // Add our 'fake' tab (this creates a new array with an increased size)
         FAKE_TAB_FOR_CONTROLLERS = new CreativeTabs(GravityMod.MOD_ID + "allcontrollers") {
             @Override
-            public ItemStack getTabIconItem() {
+            public ItemStack createIcon() {
                 // TODO: Replace with getting static ItemStack reference
                 return new ItemStack(creativeTabIcon);
             }

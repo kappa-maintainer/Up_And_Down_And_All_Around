@@ -46,7 +46,7 @@ public class Hooks {
 
     /**
      * ASM Hook used in EntityPlayerSP::updateAutoJump
-     * @param vecIn Vec3d usually having its addVector method called.
+     * @param vecIn Vec3d usually having its add method called.
      * @param xIn X amount to add.
      * @param yIn Y amount to add.
      * @param zIn Z amount to add.
@@ -57,9 +57,9 @@ public class Hooks {
         AxisAlignedBB bb = entity.getEntityBoundingBox();
         if (bb instanceof GravityAxisAlignedBB) {
             double[] d = ((GravityAxisAlignedBB) bb).getDirection().adjustXYZValues(xIn, yIn, zIn);
-            return vecIn.addVector(d[0], d[1], d[2]);
+            return vecIn.add(d[0], d[1], d[2]);
         }
-        return vecIn.addVector(xIn, yIn, zIn);
+        return vecIn.add(xIn, yIn, zIn);
     }
 
     /**
@@ -1532,7 +1532,7 @@ public class Hooks {
             GravityAxisAlignedBB g_AxisAlignedBB = (GravityAxisAlignedBB)axisalignedbb;
 //            float eyeHeight = player.getEyeHeight();
 //            double[] doubles = g_AxisAlignedBB.getDirection().adjustXYZValues(0, (double) eyeHeight, 0);
-            Vec3d vec3d = g_AxisAlignedBB.getOrigin();//.addVector(doubles[0], doubles[1], doubles[2]);
+            Vec3d vec3d = g_AxisAlignedBB.getOrigin();//.add(doubles[0], doubles[1], doubles[2]);
             EnumGravityDirection direction = g_AxisAlignedBB.getDirection();
             switch (direction) {
                 case UP:
@@ -1544,7 +1544,7 @@ public class Hooks {
                 case EAST:
                     float eyeHeight = API.getStandardEyeHeight(player);
                     double[] doubles = direction.adjustXYZValues(0, (double)eyeHeight, 0);
-                    vec3d = vec3d.addVector(doubles[0], doubles[1], doubles[2]);
+                    vec3d = vec3d.add(doubles[0], doubles[1], doubles[2]);
                     break;
             }
             player.posX = vec3d.x;

@@ -141,7 +141,7 @@ public class BlockGravityPlate extends AbstractModBlockWithItem<BlockGravityPlat
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.TRANSLUCENT;
     }
 
@@ -265,7 +265,7 @@ public class BlockGravityPlate extends AbstractModBlockWithItem<BlockGravityPlat
      * Called When an Entity enters the 1*1*1 space the block occupies in the world
      */
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote) {
             EnumFacing facing = state.getValue(BlockDirectional.FACING);
             AxisAlignedBB axisalignedbb = getBBFromFacing(facing).offset(pos);
@@ -309,11 +309,11 @@ public class BlockGravityPlate extends AbstractModBlockWithItem<BlockGravityPlat
         }
 
         @Override
-        public String getUnlocalizedName(ItemStack stack) {
+        public String getTranslationKey(ItemStack stack) {
             if (stack.getItemDamage() != 0) {
-                return super.getUnlocalizedName(stack) + ".glowing";
+                return super.getTranslationKey(stack) + ".glowing";
             }
-            return super.getUnlocalizedName(stack);
+            return super.getTranslationKey(stack);
         }
     }
 }

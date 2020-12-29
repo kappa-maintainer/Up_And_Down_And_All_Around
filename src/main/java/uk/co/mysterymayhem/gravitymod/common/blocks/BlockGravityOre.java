@@ -175,7 +175,7 @@ public class BlockGravityOre extends AbstractModBlockWithItem<BlockGravityOre, G
 
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.SOLID;
     }
 

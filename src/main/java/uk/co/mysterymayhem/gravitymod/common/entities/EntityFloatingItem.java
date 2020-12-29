@@ -241,7 +241,7 @@ public class EntityFloatingItem extends EntityItem {
 
         World world = this.world;
 
-        if (!world.isRemote && this.isCollided/*(Math.abs(xToAdd) > 0.001 || Math.abs(yToAdd + 0.03999999910593033D) > 0.001 || Math.abs(zToAdd) > 0.001)*/) {
+        if (!world.isRemote && this.collided/*(Math.abs(xToAdd) > 0.001 || Math.abs(yToAdd + 0.03999999910593033D) > 0.001 || Math.abs(zToAdd) > 0.001)*/) {
 
             double xDiff = this.posX - (xPosBefore + x);
             double yDiff = this.posY - (yPosBefore + y);

@@ -94,17 +94,17 @@ public class PatchEntityPlayerSP extends ClassPatcher {
         // There are some methods in updateAutoJump that we need to replace with gravity-direction-aware methods
         // There are a bunch of them throughout, so we do a blanket replacement for simplicity
         this.addMethodPatch(Ref.EntityPlayerSP$updateAutoJump_name::is, methodNode -> {
-            int addVectorReplacements = 0;
+            int addReplacements = 0;
             int blockPosUPCount = 0;
             int blockPosUPCountI = 0;
 
             for (ListIterator<AbstractInsnNode> iterator = methodNode.instructions.iterator(); iterator.hasNext(); /**/) {
                 AbstractInsnNode node = iterator.next();
-                if (Ref.Vec3d$addVector.is(node)) {
+                if (Ref.Vec3d$add.is(node)) {
                     iterator.remove();
                     iterator.add(new VarInsnNode(Opcodes.ALOAD, 0));
                     Ref.Hooks$addAdjustedVector.addTo(iterator);
-                    addVectorReplacements++;
+                    addReplacements++;
                 }
                 else if (Ref.BlockPos$up_NO_ARGS.is(node)) {
                     iterator.remove();
@@ -120,7 +120,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
                 }
             }
 
-            Transformer.log("updateAutoJump Replacement counts: addVector: " + addVectorReplacements
+            Transformer.log("updateAutoJump Replacement counts: add: " + addReplacements
                     + ", up(): " + blockPosUPCount
                     + ", up(int): " + blockPosUPCountI);
         });

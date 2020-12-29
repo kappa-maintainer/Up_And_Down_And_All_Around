@@ -150,7 +150,7 @@ public class TileGravityGenerator extends TileEntity implements ITickable {
 
     // when relativeX/ZRadius or relativeYHeight get changed, we need to update the searchvolume
     private void updateSearchVolume() {
-//        Vec3d centreBlockPos = new Vec3d(this.getPos()).addVector(0.5, 0.5, 0.5);
+//        Vec3d centreBlockPos = new Vec3d(this.getPos()).add(0.5, 0.5, 0.5);
         final AxisAlignedBB offset = Block.FULL_BLOCK_AABB.offset(this.getPos());
 //        final EnumGravityDirection direction = EnumGravityDirection.fromEnumFacing(this.facing.getOpposite());
         // 0 -> +0 either side, 2 -> +0.5 either side = +1, 3 -> +1 either side = +2 etc.

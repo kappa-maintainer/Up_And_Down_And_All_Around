@@ -269,7 +269,7 @@ public class ItemArmourPaste extends Item implements IGravityModItem<ItemArmourP
             NBTTagCompound tagCompound = copy.getTagCompound();
             if (tagCompound != null) {
                 tagCompound.removeTag(NBT_KEY);
-                if (tagCompound.hasNoTags()) {
+                if (tagCompound.isEmpty()) {
                     // Prevent leaving behind empty tags
                     copy.setTagCompound(null);
                 }

@@ -135,8 +135,8 @@ public abstract class AbstractModBlock<BLOCK extends AbstractModBlock<BLOCK>> ex
 
     @Override
     @Nonnull
-    public BLOCK setUnlocalizedName(@Nonnull String name) {
-        super.setUnlocalizedName(name);
+    public BLOCK setTranslationKey(@Nonnull String name) {
+        super.setTranslationKey(name);
         return this.getBlock();
     }
 }

@@ -67,7 +67,7 @@ public class Ref {
     public static final MethodName ItemStack$useItemRightClick_name = new MethodName("useItemRightClick", "func_77957_a");
     public static final MethodName RenderLivingBase$doRender_name = new MethodName("doRender", "func_76986_a");
     public static final MethodName SoundManager$setListener_name = new MethodName("setListener");
-    public static final MethodName Vec3d$addVector_name = new MethodName("addVector", "func_72441_c");
+    public static final MethodName Vec3d$add_name = new MethodName("add", "func_72441_c");
     public static final MethodName Vec3d$scale_name = new MethodName("scale", "func_186678_a");
     public static final MethodName World$getCollisionBoxes_name = new MethodName("getCollisionBoxes", "func_184144_a");
     public static final MethodName World$getEntitiesInAABBexcluding_name = new MethodName("getEntitiesInAABBexcluding", "func_175674_a");
@@ -205,7 +205,7 @@ public class Ref {
     public static final MethodInsn Item$onItemUse = new MethodInsn(
             INVOKEVIRTUAL, Item, Item$onItemUse_name, new MethodDesc(EnumActionResult, EntityPlayer, World, BlockPos, EnumHand, EnumFacing, FLOAT, FLOAT, FLOAT));
     public static final MethodInsn Item$onPlayerStoppedUsing = new MethodInsn(INVOKEVIRTUAL, Item, Item$onPlayerStoppedUsing_name, new MethodDesc(VOID, ItemStack, World, EntityLivingBase, INT));
-    public static final MethodInsn Vec3d$addVector = new MethodInsn(INVOKEVIRTUAL, Vec3d, Vec3d$addVector_name, new MethodDesc(Vec3d, DOUBLE, DOUBLE, DOUBLE));
+    public static final MethodInsn Vec3d$add = new MethodInsn(INVOKEVIRTUAL, Vec3d, Vec3d$add_name, new MethodDesc(Vec3d, DOUBLE, DOUBLE, DOUBLE));
     public static final MethodInsn Vec3d$scale = new MethodInsn(INVOKEVIRTUAL, Vec3d, Vec3d$scale_name, new MethodDesc(Vec3d, DOUBLE));
     public static final MethodInsn WorldClient$getEntitiesInAABBexcluding = new MethodInsn(
             INVOKEVIRTUAL, WorldClient, World$getEntitiesInAABBexcluding_name, new MethodDesc(List, Entity, AxisAlignedBB, Predicate));

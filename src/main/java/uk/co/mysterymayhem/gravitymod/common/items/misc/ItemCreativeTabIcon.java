@@ -130,7 +130,7 @@ public class ItemCreativeTabIcon extends Item implements IGravityModItem<ItemCre
         double zToAdd = (entityItem.posZ - zBefore) - zMotionBefore;
 
 
-        if (remote && entityItem.isCollided) {
+        if (remote && entityItem.collided) {
             // Spawn a firework when the item entity hits a block
             entityItem.world.makeFireworks(entityItem.posX, entityItem.posY, entityItem.posZ, entityItem.motionX, entityItem.motionY, entityItem.motionZ, fireworkTag);
         }

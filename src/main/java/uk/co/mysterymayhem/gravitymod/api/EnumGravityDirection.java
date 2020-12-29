@@ -707,7 +707,7 @@ public enum EnumGravityDirection implements IStringSerializable {
                     player.setEntityBoundingBox(axisAlignedBB);
                     player.resetPositionToBB();
 
-                    Vec3d newEyePos = player.getPositionVector().addVector(0, player.getEyeHeight(), 0);
+                    Vec3d newEyePos = player.getPositionVector().add(0, player.getEyeHeight(), 0);
                     Vec3d eyesDifference = oldEyePos.subtract(newEyePos);
                     Vec3d adjustedDifference = this.getInverseAdjustmentFromDOWNDirection().adjustLookVec(eyesDifference);
                     AxisAlignedBB givenUp = axisAlignedBB.offset(adjustedDifference.x, adjustedDifference.y, adjustedDifference.z);

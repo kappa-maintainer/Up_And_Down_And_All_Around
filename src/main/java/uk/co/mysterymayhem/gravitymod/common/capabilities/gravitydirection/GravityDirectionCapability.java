@@ -79,7 +79,7 @@ public class GravityDirectionCapability {
         // Get the current direction
         EnumGravityDirection oldDirection = capability.getDirection();
         // Get the current eye position (used when there's no safe position to put the player)
-        Vec3d oldEyePos = player.getPositionVector().addVector(0, player.getEyeHeight(), 0);
+        Vec3d oldEyePos = player.getPositionVector().add(0, player.getEyeHeight(), 0);
         // Apply any changes the old direction needs to make before the direction gets changed
         oldDirection.preModifyPlayerOnGravityChange(player, newDirection);
         // Set the new direction
@@ -109,7 +109,7 @@ public class GravityDirectionCapability {
 
         // This information is used in rendering, there's no reason to do it if we're a server
         if (clientSide) {
-            Vec3d newEyePos = player.getPositionVector().addVector(0, player.getEyeHeight(), 0);
+            Vec3d newEyePos = player.getPositionVector().add(0, player.getEyeHeight(), 0);
 
             Vec3d eyesDiff = newEyePos.subtract(oldEyePos);
 

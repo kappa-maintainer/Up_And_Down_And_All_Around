@@ -53,13 +53,13 @@ public class ItemGravityBauble extends Item implements IBauble, IGravityModItem<
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getTranslationKey(ItemStack stack) {
         int i = stack.getItemDamage();
         if (i < 0 || i >= DAMAGE_TO_NAME_MAP.size()) {
-            return super.getUnlocalizedName() + "." + "error";
+            return super.getTranslationKey() + "." + "error";
         }
         else {
-            return super.getUnlocalizedName() + "." + DAMAGE_TO_NAME_MAP.get(i);
+            return super.getTranslationKey() + "." + DAMAGE_TO_NAME_MAP.get(i);
         }
     }
 

@@ -106,9 +106,9 @@ public class ItemGravityAnchor extends Item implements ITickOnMouseCursor, IGrav
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getTranslationKey(ItemStack stack) {
         int i = stack.getItemDamage();
-        return super.getUnlocalizedName() + "." + EnumGravityDirection.getSafeDirectionFromOrdinal(i).getName();
+        return super.getTranslationKey() + "." + EnumGravityDirection.getSafeDirectionFromOrdinal(i).getName();
     }
 
     @Override
@@ -128,7 +128,7 @@ public class ItemGravityAnchor extends Item implements ITickOnMouseCursor, IGrav
 
         //TODO: Find the correct block and apply its slipperiness instead?
         // The item entities tend to slide all over the place otherwise
-        if (entityItem.isCollided) {
+        if (entityItem.collided) {
             entityItem.motionX *= 0.8d;
             entityItem.motionY *= 0.8d;
             entityItem.motionZ *= 0.8d;
@@ -146,19 +146,19 @@ public class ItemGravityAnchor extends Item implements ITickOnMouseCursor, IGrav
         // TODO: Determine how much of an effect (if any) this has
         switch (direction) {
             case UP:
-                entityItem.onGround = entityItem.isCollidedVertically && entityItem.motionY > 0;
+                entityItem.onGround = entityItem.collidedVertically && entityItem.motionY > 0;
                 break;
             case NORTH:
-                entityItem.onGround = entityItem.isCollidedHorizontally && entityItem.motionZ < 0;
+                entityItem.onGround = entityItem.collidedHorizontally && entityItem.motionZ < 0;
                 break;
             case EAST:
-                entityItem.onGround = entityItem.isCollidedHorizontally && entityItem.motionX > 0;
+                entityItem.onGround = entityItem.collidedHorizontally && entityItem.motionX > 0;
                 break;
             case SOUTH:
-                entityItem.onGround = entityItem.isCollidedHorizontally && entityItem.motionZ > 0;
+                entityItem.onGround = entityItem.collidedHorizontally && entityItem.motionZ > 0;
                 break;
             case WEST:
-                entityItem.onGround = entityItem.isCollidedHorizontally && entityItem.motionX < 0;
+                entityItem.onGround = entityItem.collidedHorizontally && entityItem.motionX < 0;
                 break;
         }
 
@@ -260,7 +260,7 @@ public class ItemGravityAnchor extends Item implements ITickOnMouseCursor, IGrav
                     }
                 }
                 else {
-                    EnumFacing relativeHorizontalFacing = EnumFacing.getHorizontal(MathHelper.floor((relativeYaw * 4.0F / 360.0F) + 0.5D) & 3);
+                    EnumFacing relativeHorizontalFacing = EnumFacing.byHorizontalIndex(MathHelper.floor((relativeYaw * 4.0F / 360.0F) + 0.5D) & 3);
                     EnumFacing absoluteHorizontalFacing;
 
                     switch (entityGravityDirection.getInverseAdjustmentFromDOWNDirection()) {

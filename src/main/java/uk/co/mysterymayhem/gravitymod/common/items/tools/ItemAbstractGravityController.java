@@ -141,11 +141,11 @@ public abstract class ItemAbstractGravityController extends Item implements ITic
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getTranslationKey(ItemStack stack) {
         int meta = stack.getItemDamage();
         EnumControllerActiveDirection fromCombinedMeta = EnumControllerActiveDirection.getFromCombinedMeta(meta);
 
-        return super.getUnlocalizedName() + fromCombinedMeta.extraText;
+        return super.getTranslationKey() + fromCombinedMeta.extraText;
     }
 
     // Returns true, even though, we return null in the createEntity method, so that we can modify the item meta/damage when an item entity gets spawned
@@ -376,12 +376,12 @@ public abstract class ItemAbstractGravityController extends Item implements ITic
         public final EnumControllerActiveDirection illegalDirection;
         public final int mask;
         public final EnumControllerActiveDirection onlyLegalDirection;
-        public final String unlocalizedName;
+        public final String TranslationKey;
 
-        EnumControllerVisibleState(String unlocalizedName, EnumControllerActiveDirection illegalCombination, EnumControllerActiveDirection onlyLegalCombination) {
+        EnumControllerVisibleState(String TranslationKey, EnumControllerActiveDirection illegalCombination, EnumControllerActiveDirection onlyLegalCombination) {
             this.illegalDirection = illegalCombination;
             this.onlyLegalDirection = onlyLegalCombination;
-            this.unlocalizedName = unlocalizedName;
+            this.TranslationKey = TranslationKey;
             this.mask = this.ordinal() << 3;
         }
 
@@ -412,8 +412,8 @@ public abstract class ItemAbstractGravityController extends Item implements ITic
             return this;
         }
 
-        public String getUnlocalizedName() {
-            return this.unlocalizedName;
+        public String getTranslationKey() {
+            return this.TranslationKey;
         }
 
         public boolean isOffState() {
@@ -445,7 +445,7 @@ public abstract class ItemAbstractGravityController extends Item implements ITic
             ItemAbstractGravityController item = ItemAbstractGravityController.this;
             this.list = new ArrayList<>();
             for (EnumControllerVisibleState visibleState : EnumControllerVisibleState.values()) {
-                this.list.add(new ModelResourceLocation(item.getRegistryName() + "_" + visibleState.getUnlocalizedName(), "inventory"));
+                this.list.add(new ModelResourceLocation(item.getRegistryName() + "_" + visibleState.getTranslationKey(), "inventory"));
             }
 
             for (EnumControllerVisibleState visibleState : EnumControllerVisibleState.values()) {
@@ -457,12 +457,12 @@ public abstract class ItemAbstractGravityController extends Item implements ITic
                         if (visibleState.onlyLegalDirection == activeDirection) {
                             // If the visible direction is the same as the active direction, we don't need to display the extra overlay
                             // that shows the currently active direction
-                            String variant = "active=" + EnumControllerActiveDirection.NONE.name().toLowerCase(Locale.ENGLISH) + ",visible=" + visibleState.getUnlocalizedName();
+                            String variant = "active=" + EnumControllerActiveDirection.NONE.name().toLowerCase(Locale.ENGLISH) + ",visible=" + visibleState.getTranslationKey();
                             this.modelLookup.put(getCombinedMetaFor(activeDirection, visibleState), new ModelResourceLocation(item.getRegistryName(), variant));
                         }
                     }
                     else {
-                        String variant = "active=" + activeDirection.name().toLowerCase(Locale.ENGLISH) + ",visible=" + visibleState.getUnlocalizedName();
+                        String variant = "active=" + activeDirection.name().toLowerCase(Locale.ENGLISH) + ",visible=" + visibleState.getTranslationKey();
                         this.modelLookup.put(getCombinedMetaFor(activeDirection, visibleState), new ModelResourceLocation(item.getRegistryName(), variant));
                     }
                 }

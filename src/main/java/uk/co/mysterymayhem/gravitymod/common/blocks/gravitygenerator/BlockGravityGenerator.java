@@ -77,15 +77,15 @@ public class BlockGravityGenerator extends AbstractGravityModBlockWithItem<Block
             }
 
             @Override
-            public String getUnlocalizedName(ItemStack stack) {
+            public String getTranslationKey(ItemStack stack) {
                 int itemDamage = stack.getItemDamage();
                 IBlockState stateFromMeta = BlockGravityGenerator.this.getStateFromMeta(itemDamage);
                 String extra = TIER.getName(stateFromMeta.getValue(TIER));
                 if (stateFromMeta.getValue(REVERSED)) {
                     extra += ".reversed";
                 }
-                return this.getBlock().getUnlocalizedName() + '.' + extra;
-//                return super.getUnlocalizedName(stack);
+                return this.getBlock().getTranslationKey() + '.' + extra;
+//                return super.getTranslationKey(stack);
             }
         };
         itemBlock.setHasSubtypes(true);

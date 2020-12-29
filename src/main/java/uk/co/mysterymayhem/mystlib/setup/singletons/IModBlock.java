@@ -13,7 +13,7 @@ public interface IModBlock<T extends Block & IModBlock<T>> extends IModObject, I
     default void register(IForgeRegistry<Block> registry) {
         CreativeTabs creativeTab = this.getModCreativeTab();
         T block = this.getBlock();
-        block.setUnlocalizedName(this.getModID() + '.' + block.getModObjectName());
+        block.setTranslationKey(this.getModID() + '.' + block.getModObjectName());
         block.setRegistryName(this.getModID(), block.getModObjectName());
         if (creativeTab != null) {
             block.setCreativeTab(creativeTab);
