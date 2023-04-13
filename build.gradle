@@ -2,17 +2,22 @@
 // For those who want the bleeding edge
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://maven.minecraftforge.net/"
         }
+        maven { url "https://repo.spongepowered.org/repository/maven-public" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath("com.anatawa12.forge:ForgeGradle:2.3-1.0.+") {
+            changing = true
+        }
+        classpath "org.spongepowered:mixingradle:0.6-SNAPSHOT"
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.mixin'
 
 /*
 // for people who want stable - not yet functional for MC 1.8.8 - we require the forgegradle 2.1 snapshot
@@ -20,7 +25,7 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "2.9.1"
+version = "2.10.0"
 group= "uk.co.mysterymayhem.gravitymod" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "UpAndDownAndAllAround-1.12.2"
 targetCompatibility = "1.8"
@@ -29,7 +34,7 @@ sourceCompatibility = "1.8"
 minecraft {
     version = "1.12.2-14.23.5.2847"
     runDir = "run"
-    
+    clientJvmArgs = ["-Dmixin.debug=true"]
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
     // stable_#            stables are built at the discretion of the MCP team.
@@ -41,36 +46,31 @@ minecraft {
 }
 
 repositories {
-    ivy {
-        name 'asie dependency mirror'
-        artifactPattern "http://asie.pl/javadeps/[module]-[revision](-[classifier]).[ext]"
+    maven {
+        url "https://maven.mcmoddev.com"
     }
+    maven {
+        url "https://repo.cleanroommc.com/releases"
+    }
+    maven {
+        url "https://repo.spongepowered.org/maven"
+    }
+    maven {
+        url "https://repo.azusahideout.ml/snapshots"
+    }
+
+    //maven {url "https://jitpack.io"}
 }
 
 dependencies {
-    deobfCompile name: "Baubles", version: "1.12-1.5.2"
 
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+    //annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-common:0.2.0-beta.6")
+    //compile("com.github.llamalad7.mixinextras:mixinextras-forge:0.2.0-beta.6")
+    deobfCompile "com.azanor:Baubles:1.12-1.5.2"
+    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    //compile "zone.rong:mixinbooter:7.1"
+    compile "zone.rong:mixinbooter:7.1-test"
 }
 
 processResources
@@ -91,6 +91,10 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+mixin {
+    add sourceSets.main, "mixins.gravitymod.refmap.json"
 }
 
 jar {
