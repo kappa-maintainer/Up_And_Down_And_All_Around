@@ -70,7 +70,7 @@ dependencies {
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 
     //compile "zone.rong:mixinbooter:7.1"
-    compile "zone.rong:mixinbooter:7.1-test"
+    compile "zone.rong:mixinbooter:7.1-test-5"
 }
 
 processResources

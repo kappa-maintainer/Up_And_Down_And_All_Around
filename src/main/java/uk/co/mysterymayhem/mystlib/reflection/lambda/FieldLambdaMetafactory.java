@@ -30,7 +30,7 @@ public class FieldLambdaMetafactory {
     private static final int CLASSFILE_VERSION = 52;
     // Reference to the same 'counter' field in java.lang.invoke.InnerClassLambdaMetafactory
     private static final AtomicInteger counter;
-    private static final Unsafe UNSAFE;
+    @SuppressWarnings("Unsafe") private static final Unsafe UNSAFE;
 
     static {
         try {

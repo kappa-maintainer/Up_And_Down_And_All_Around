@@ -5,7 +5,11 @@
   "refmap": "mixins.gravitymod.refmap.json",
   "target": "@env(DEFAULT)",
   "mixins": [
-    "MixinEntity"
+    "MixinEntity",
+    "MixinEntityRenderer",
+    "MixinRenderLivingBase",
+    "MixinEntityPlayerSP",
+    "MixinEntityLivingBase"
   ],
   "setSourceFile": true,
   "minVersion": "0.8"
