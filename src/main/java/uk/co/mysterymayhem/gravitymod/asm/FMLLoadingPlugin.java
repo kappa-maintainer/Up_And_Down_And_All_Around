@@ -14,12 +14,13 @@ import java.util.Map;
 @IFMLLoadingPlugin.Name("mysttmtgravitymod")
 //@IFMLLoadingPlugin.MCVersion("1.12.2")
 // Extra late so we patch after most other mods so we can more easily tell if a patch has failed (I don't trust other mods to detect when they fail)
-@IFMLLoadingPlugin.SortingIndex(value = 9001)
+@IFMLLoadingPlugin.SortingIndex(value = 1001)
 public class FMLLoadingPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
     @Override
     public String[] getASMTransformerClass() {
-        return new String[]{Transformer.class.getName()};
+        //return new String[]{Transformer.class.getName()};
+        return new String[]{};
     }
 
     @Override
@@ -47,4 +48,6 @@ public class FMLLoadingPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
     public List<String> getMixinConfigs() {
         return Collections.singletonList("gravitymod.mixins.json");
     }
+
+
 }

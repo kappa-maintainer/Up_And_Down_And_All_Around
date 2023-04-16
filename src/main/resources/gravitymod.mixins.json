@@ -3,13 +3,22 @@
   "package": "uk.co.mysterymayhem.gravitymod.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.gravitymod.refmap.json",
+  "plugin": "uk.co.mysterymayhem.gravitymod.asm.MixinPlugin",
   "target": "@env(DEFAULT)",
   "mixins": [
+    "MixinEntityLivingBase",
     "MixinEntity",
-    "MixinEntityRenderer",
-    "MixinRenderLivingBase",
+    "MixinWorld",
     "MixinEntityPlayerSP",
-    "MixinEntityLivingBase"
+    "MixinRenderLivingBase",
+    "MixinEntityRenderer",
+    "MixinAbstractClientPlayer",
+    "MixinEntityOtherPlayerMP",
+    "MixinEntityPlayerMP",
+    "MixinItemStack",
+    "MixinNetHandlerPlayerClient",
+    "MixinNetHandlerPlayerServer",
+    "MixinSoundManager"
   ],
   "setSourceFile": true,
   "minVersion": "0.8"

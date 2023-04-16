@@ -1,12 +1,16 @@
 package uk.co.mysterymayhem.gravitymod.asm.util.patching;
 
 import com.google.common.collect.Lists;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
+import org.spongepowered.tools.obfuscation.ObfuscationData;
 import uk.co.mysterymayhem.gravitymod.asm.Transformer;
+import uk.co.mysterymayhem.gravitymod.asm.util.obfuscation.ObfuscationHelper;
 import uk.co.mysterymayhem.gravitymod.asm.util.obfuscation.names.ObjectName;
 
 import java.util.ArrayList;
@@ -64,7 +68,7 @@ public abstract class ClassPatcher implements Function<byte[], byte[]> {
         this.patchClass(classNode);
 
         if (this.numMethodPatchesAttempted != this.numMethodPatches) {
-            Transformer.die("Failed to find all the methods to patch in " + classNode.name +
+            Transformer.die("Failed to find all the methods to patch in " + (ObfuscationHelper.IS_DEV_ENVIRONMENT ? classNode.name : FMLDeobfuscatingRemapper.INSTANCE.map(classNode.name)) +
                     ". The Minecraft/Forge version you are using likely does not match what the mod requires.");
         }
 

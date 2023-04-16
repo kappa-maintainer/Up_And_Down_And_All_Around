@@ -7,8 +7,8 @@
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["Mysteryem"],
-  "credits": "McJty for the highly useful modding tutorials",
+  "authorList": ["kappa-maintainer","Mysteryem"],
+  "credits": "McJty for the highly useful modding tutorials, CleanroomMC for they patiently listen to my Mixin complain",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

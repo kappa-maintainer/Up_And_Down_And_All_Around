@@ -58,17 +58,17 @@ public class Transformer implements IClassTransformer {
         // Patches setListener
         addClassPatch(new PatchSoundManager());
         // Patches onUpdateWalkingPlayer, onLivingUpdate, isHeadspaceFree, updateAutoJump, moveEntity
-        //addClassPatch(new PatchEntityPlayerSP());
+        addClassPatch(new PatchEntityPlayerSP());
         // Patches handlePlayerPosLook
         addClassPatch(new PatchNetHandlerPlayClient());
         // Patches getMouseOver, drawNameplate
-        //addClassPatch(new PatchEntityRenderer());
+        addClassPatch(new PatchEntityRenderer());
         // Patches doRender
-        //addClassPatch(new PatchRenderLivingBase());
+        addClassPatch(new PatchRenderLivingBase());
         // Patches moveEntity, moveRelative
-        //addClassPatch(new PatchEntity());
+        addClassPatch(new PatchEntity());
         // Patches moveEntityWithHeading, updateDistance, onUpdate, jump
-        //addClassPatch(new PatchEntityLivingBase());
+        addClassPatch(new PatchEntityLivingBase());
         // Patches onItemUse, useItemRightClick, onPlayerStoppedUsing
         //      (all three are used to add compatibility with other mods, they are not otherwise used by this mod)
         addClassPatch(new PatchItemStack());
