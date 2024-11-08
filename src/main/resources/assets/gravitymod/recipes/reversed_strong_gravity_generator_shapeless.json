@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "gravitymod:gravitygenerator",
+    "data": 6
+  },
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "item": "#STRONG_GRAVITY_GENERATOR"
+    }
+  ]
+}

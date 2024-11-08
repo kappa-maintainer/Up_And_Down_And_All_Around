@@ -41,7 +41,7 @@ public class ItemTooltipListener {
                     addNormalGravityTooltip(toolTips, player);
                 }
                 else if (ItemArmourPaste.hasPasteTag(itemStack)) {
-                    toolTips.add(I18n.format("mouseovertext.mysttmtgravitymod.hasarmourpaste"));
+                    toolTips.add(I18n.format("mouseovertext.gravitymod.hasarmourpaste"));
 //                    toolTips.add("Affected by normal strength and stronger gravity");
                     addNormalGravityTooltip(toolTips, player);
                 }
@@ -57,7 +57,7 @@ public class ItemTooltipListener {
         int numRequired = ConfigHandler.numWeakGravityEnablersRequiredForWeakGravity;
         boolean enoughEquipped = numWeakEnablersWorn >= numRequired;
         toolTips.add(I18n.format(
-                "mouseovertext.mysttmtgravitymod.weaktooltip",
+                "mouseovertext.gravitymod.weaktooltip",
                 enoughEquipped ? "f" : "c",
                 numWeakEnablersWorn,
                 numRequired));
@@ -70,7 +70,7 @@ public class ItemTooltipListener {
         boolean weakEnablersDontCount = numWeakEnablerCountsAs == 0;
         if (!weakEnablersDontCount && KeyBindingUtil.isKeyPressed(keyBindSneak)) {
             toolTips.add(I18n.format(
-                    "mouseovertext.mysttmtgravitymod.normaltooltip.sneak",
+                    "mouseovertext.gravitymod.normaltooltip.sneak",
                     getNumWeakEnablersWorn(player),
                     numWeakEnablerCountsAs,
                     getNumNormalEnablersWorn(player)));
@@ -81,7 +81,7 @@ public class ItemTooltipListener {
             int numRequired = ConfigHandler.numNormalGravityEnablersRequiredForNormalGravity;
             boolean enoughEquipped = combinedNormalEnablersWorn >= numRequired;
             toolTips.add(I18n.format(
-                    "mouseovertext.mysttmtgravitymod.normaltooltip",
+                    "mouseovertext.gravitymod.normaltooltip",
                     enoughEquipped ? "5" : "c",
                     combinedNormalEnablersWorn,
                     numRequired,
@@ -91,7 +91,7 @@ public class ItemTooltipListener {
     }
 
     public static void addInducerTooltip(@Nonnull List<String> toolTips, @Nonnull EntityPlayer player) {
-        toolTips.add(I18n.format("mouseovertext.mysttmtgravitymod.hasinducer"));
+        toolTips.add(I18n.format("mouseovertext.gravitymod.hasinducer"));
     }
 
     private static int getNumWeakEnablersWorn(@Nonnull EntityPlayer player) {

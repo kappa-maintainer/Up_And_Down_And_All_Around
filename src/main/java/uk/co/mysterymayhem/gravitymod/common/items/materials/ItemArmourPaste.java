@@ -73,16 +73,16 @@ public class ItemArmourPaste extends Item implements IGravityModItem<ItemArmourP
         KeyBinding keyBindSneak = Minecraft.getMinecraft().gameSettings.keyBindSneak;
         if (KeyBindingUtil.isKeyPressed(keyBindSneak)) {
             if (ModSupport.isModLoaded(ModSupport.BAUBLES_MOD_ID)) {
-                tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.armourpaste.infobaubles"));
-                tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.armourpaste.inforemovalbaubles"));
+                tooltip.add(I18n.format("mouseovertext.gravitymod.armourpaste.infobaubles"));
+                tooltip.add(I18n.format("mouseovertext.gravitymod.armourpaste.inforemovalbaubles"));
             }
             else {
-                tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.armourpaste.info"));
-                tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.armourpaste.inforemoval"));
+                tooltip.add(I18n.format("mouseovertext.gravitymod.armourpaste.info"));
+                tooltip.add(I18n.format("mouseovertext.gravitymod.armourpaste.inforemoval"));
             }
         }
         else {
-            tooltip.add(keyBindSneak.getDisplayName() + I18n.format("mouseovertext.mysttmtgravitymod.presskeyfordetails"));
+            tooltip.add(keyBindSneak.getDisplayName() + I18n.format("mouseovertext.gravitymod.presskeyfordetails"));
         }
     }
 
@@ -105,8 +105,8 @@ public class ItemArmourPaste extends Item implements IGravityModItem<ItemArmourP
     @SideOnly(Side.CLIENT)
     @Override
     public void registerClient(IForgeRegistry<Item> registry) {
-        String ANY_ARMOUR_TEXT = I18n.format("crafting.mysttmtgravitymod.armorpasteinfo.nopaste");
-        String ANY_ARMOUR_WITH_PASTE_TEXT = I18n.format("crafting.mysttmtgravitymod.armorpasteinfo.paste");
+        String ANY_ARMOUR_TEXT = I18n.format("crafting.gravitymod.armorpasteinfo.nopaste");
+        String ANY_ARMOUR_WITH_PASTE_TEXT = I18n.format("crafting.gravitymod.armorpasteinfo.paste");
         ArmourPasteRemoval.DUMMY_RECIPE_INPUT.setStackDisplayName(ANY_ARMOUR_WITH_PASTE_TEXT);
         ArmourPasteRemoval.DUMMY_RECIPE_OUTPUT.setStackDisplayName(ANY_ARMOUR_TEXT);
         ArmourPasteRecipe.DUMMY_RECIPE_INPUT.setStackDisplayName(ANY_ARMOUR_TEXT);

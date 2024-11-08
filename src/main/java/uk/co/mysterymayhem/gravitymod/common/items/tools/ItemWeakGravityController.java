@@ -22,7 +22,7 @@ public class ItemWeakGravityController extends ItemAbstractGravityController {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced) {
-        tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.weakgravitycontroller"));
+        tooltip.add(I18n.format("mouseovertext.gravitymod.weakgravitycontroller"));
         EntityPlayerSP player = Minecraft.getMinecraft().player;
         if (player != null) {
             ItemTooltipListener.addWeakGravityTooltip(tooltip, player);

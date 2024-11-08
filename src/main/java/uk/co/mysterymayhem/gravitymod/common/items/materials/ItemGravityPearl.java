@@ -25,7 +25,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import uk.co.mysterymayhem.gravitymod.common.config.ConfigHandler;
 import uk.co.mysterymayhem.gravitymod.common.registries.IGravityModItem;
-import uk.co.mysterymayhem.gravitymod.common.util.ReflectionLambdas;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -175,7 +174,7 @@ public class ItemGravityPearl extends Item implements IGravityModItem<ItemGravit
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.gravitypearl"));
+        tooltip.add(I18n.format("mouseovertext.gravitymod.gravitypearl"));
     }
 
     @Override
@@ -200,7 +199,7 @@ public class ItemGravityPearl extends Item implements IGravityModItem<ItemGravit
 
     @Override
     public boolean onEntityItemUpdate(EntityItem entityItem) {
-        int age = ReflectionLambdas.get_EntityItem$age.applyAsInt(entityItem);
+        int age = entityItem.age;
         if (entityItem.world.isRemote) {
             // For some reason this fixes some client/server desync. Is there perhaps a bigger vanilla issue at play here?
             age++;

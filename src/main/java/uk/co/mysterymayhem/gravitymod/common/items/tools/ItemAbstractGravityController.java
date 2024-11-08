@@ -79,11 +79,11 @@ public abstract class ItemAbstractGravityController extends Item implements ITic
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced) {
         KeyBinding keyBindSneak = Minecraft.getMinecraft().gameSettings.keyBindSneak;
         if (KeyBindingUtil.isKeyPressed(keyBindSneak)) {
-            tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.gravitycontroller.sneak.line1"));
-            tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.gravitycontroller.sneak.line2"));
+            tooltip.add(I18n.format("mouseovertext.gravitymod.gravitycontroller.sneak.line1"));
+            tooltip.add(I18n.format("mouseovertext.gravitymod.gravitycontroller.sneak.line2"));
         }
         else {
-            tooltip.add(keyBindSneak.getDisplayName() + I18n.format("mouseovertext.mysttmtgravitymod.presskeyfordetails"));
+            tooltip.add(keyBindSneak.getDisplayName() + I18n.format("mouseovertext.gravitymod.presskeyfordetails"));
         }
         if (advanced.isAdvanced()) {
             int meta = stack.getItemDamage();

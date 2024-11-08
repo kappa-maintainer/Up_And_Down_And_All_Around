@@ -1,0 +1,84 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "gravitymod:gravitygenerator",
+    "textures": {
+      "front": "gravitymod:blocks/gravitygenerator_off",
+      "side": "gravitymod:blocks/gravitygenerator_base",
+      "side_on": "gravitymod:blocks/gravitygenerator_base",
+      "back": "gravitymod:blocks/gravitygenerator_base",
+      "back_on": "gravitymod:blocks/gravitygenerator_base",
+      "front_on" : "gravitymod:blocks/gravitygenerator_on"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "facing": {
+      "north": {"x": 90},
+      "south": {"x": -90},
+      "west": {"x": 90, "y": -90},
+      "east": {"x": 90, "y": 90},
+      "up": {},
+      "down": {"x": 180}
+    },
+    "active": {
+      "false": {},
+      "true": {
+        "model": "gravitymod:gravitygenerator_on"
+      }
+    },
+    "reversed": {
+      "false": {
+        "textures": {
+          "side": "#side_normal",
+          "side_on": "#side_normal_on"
+        }
+      },
+      "true": {
+        "textures": {
+          "side": "#side_reverse",
+          "side_on": "#side_reverse_on"
+        }
+      }
+    },
+    "tier": {
+      "weak": {
+        "textures": {
+          "side_normal": "gravitymod:blocks/weakgravitygenerator_side",
+          "side_normal_on": "gravitymod:blocks/weakgravitygenerator_side_on",
+          "side_reverse": "gravitymod:blocks/weakgravitygenerator_side_reverse",
+          "side_reverse_on": "gravitymod:blocks/weakgravitygenerator_side_on_reverse",
+          "front": "gravitymod:blocks/weakgravitygenerator_front",
+          "front_on": "gravitymod:blocks/weakgravitygenerator_front_on",
+          "back": "gravitymod:blocks/weakgravitygenerator_base",
+          "back_on": "gravitymod:blocks/weakgravitygenerator_base_on"
+        }
+      },
+      "normal": {
+        "textures": {
+          "side_normal": "gravitymod:blocks/normalgravitygenerator_side",
+          "side_normal_on": "gravitymod:blocks/normalgravitygenerator_side_on",
+          "side_reverse": "gravitymod:blocks/normalgravitygenerator_side_reverse",
+          "side_reverse_on": "gravitymod:blocks/normalgravitygenerator_side_on_reverse",
+          "front": "gravitymod:blocks/normalgravitygenerator_front",
+          "front_on": "gravitymod:blocks/normalgravitygenerator_front_on",
+          "back": "gravitymod:blocks/normalgravitygenerator_base",
+          "back_on": "gravitymod:blocks/normalgravitygenerator_base_on"
+        }
+      },
+      "strong": {
+        "textures": {
+          "side_normal": "gravitymod:blocks/stronggravitygenerator_side",
+          "side_normal_on": "gravitymod:blocks/stronggravitygenerator_side_on",
+          "side_reverse": "gravitymod:blocks/stronggravitygenerator_side_reverse",
+          "side_reverse_on": "gravitymod:blocks/stronggravitygenerator_side_on_reverse",
+          "front": "gravitymod:blocks/stronggravitygenerator_front",
+          "front_on": "gravitymod:blocks/stronggravitygenerator_front_on",
+          "back": "gravitymod:blocks/stronggravitygenerator_base",
+          "back_on": "gravitymod:blocks/stronggravitygenerator_base_on"
+        }
+      }
+    }
+  }
+}

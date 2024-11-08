@@ -45,11 +45,11 @@ public class ItemGravityDustInducer extends Item implements IGravityModItem<Item
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
         KeyBinding keyBindSneak = Minecraft.getMinecraft().gameSettings.keyBindSneak;
         if (KeyBindingUtil.isKeyPressed(keyBindSneak)) {
-            tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.gravitydustinducer.line1"));
-            tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.gravitydustinducer.line2"));
+            tooltip.add(I18n.format("mouseovertext.gravitymod.gravitydustinducer.line1"));
+            tooltip.add(I18n.format("mouseovertext.gravitymod.gravitydustinducer.line2"));
         }
         else {
-            tooltip.add(keyBindSneak.getDisplayName() + I18n.format("mouseovertext.mysttmtgravitymod.presskeyfordetails"));
+            tooltip.add(keyBindSneak.getDisplayName() + I18n.format("mouseovertext.gravitymod.presskeyfordetails"));
         }
     }
 
@@ -62,8 +62,8 @@ public class ItemGravityDustInducer extends Item implements IGravityModItem<Item
     @Override
     public void registerClient(IForgeRegistry<Item> registry) {
         //TODO: Change to different translation strings
-        String ANY_NON_STACKABLE_TEXT = I18n.format("crafting.mysttmtgravitymod.inducerinfo.noinducer");
-        String ANY_NON_STACKABLE_WITH_INDUCER_TEXT = I18n.format("crafting.mysttmtgravitymod.inducerinfo.inducer");
+        String ANY_NON_STACKABLE_TEXT = I18n.format("crafting.gravitymod.inducerinfo.noinducer");
+        String ANY_NON_STACKABLE_WITH_INDUCER_TEXT = I18n.format("crafting.gravitymod.inducerinfo.inducer");
         GravityDustInducerRemoval.DUMMY_RECIPE_INPUT.setStackDisplayName(ANY_NON_STACKABLE_WITH_INDUCER_TEXT);
         GravityDustInducerRemoval.DUMMY_RECIPE_OUTPUT.setStackDisplayName(ANY_NON_STACKABLE_TEXT);
         GravityDustInducerRecipe.DUMMY_RECIPE_INPUT.setStackDisplayName(ANY_NON_STACKABLE_TEXT);

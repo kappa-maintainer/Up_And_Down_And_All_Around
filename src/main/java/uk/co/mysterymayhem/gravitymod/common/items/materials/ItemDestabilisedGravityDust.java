@@ -37,7 +37,7 @@ public class ItemDestabilisedGravityDust extends Item implements IGravityModItem
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (ConfigHandler.destabilisedGravityDustDissipatesWhenDropped) {
-            tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.destabilisedgravitydust.warning"));
+            tooltip.add(I18n.format("mouseovertext.gravitymod.destabilisedgravitydust.warning"));
         }
     }
 

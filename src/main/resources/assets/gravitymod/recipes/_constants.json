@@ -1,0 +1,344 @@
+[
+  {
+    "ingredient": {
+      "item": "gravitymod:personalgravitycontroller",
+      "data": 6
+    },
+    "name": "NORMAL_GRAVITY_CONTROLLER_DOWN_OFF"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:personalgravitycontroller",
+      "data": 32767
+    },
+    "name": "NORMAL_GRAVITY_CONTROLLER_ANY"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:weakgravitycontroller",
+      "data": 6
+    },
+    "name": "WEAK_GRAVITY_CONTROLLER_DOWN_OFF"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:weakgravitycontroller",
+      "data": 32767
+    },
+    "name": "WEAK_GRAVITY_CONTROLLER_ANY"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:ultimategravitycontroller",
+      "data": 6
+    },
+    "name": "STRONG_GRAVITY_CONTROLLER_DOWN_OFF"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:ultimategravitycontroller",
+      "data": 32767
+    },
+    "name": "STRONG_GRAVITY_CONTROLLER_ANY"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitybauble",
+      "data": 0
+    },
+    "name": "GRAVITY_BAUBLE_AMULET"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitybauble",
+      "data": 1
+    },
+    "name": "GRAVITY_BAUBLE_RING"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitybauble",
+      "data": 2
+    },
+    "name": "GRAVITY_BAUBLE_BELT"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitybauble",
+      "data": 3
+    },
+    "name": "GRAVITY_BAUBLE_TRINKET"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitybauble",
+      "data": 4
+    },
+    "name": "GRAVITY_BAUBLE_HEAD"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitybauble",
+      "data": 5
+    },
+    "name": "GRAVITY_BAUBLE_BODY"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitybauble",
+      "data": 6
+    },
+    "name": "GRAVITY_BAUBLE_CHARM"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityanchor",
+      "data": 0
+    },
+    "name": "GRAVITY_ANCHOR_UP"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityanchor",
+      "data": 1
+    },
+    "name": "GRAVITY_ANCHOR_DOWN"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityanchor",
+      "data": 2
+    },
+    "name": "GRAVITY_ANCHOR_NORTH"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityanchor",
+      "data": 3
+    },
+    "name": "GRAVITY_ANCHOR_EAST"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityanchor",
+      "data": 4
+    },
+    "name": "GRAVITY_ANCHOR_SOUTH"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityanchor",
+      "data": 5
+    },
+    "name": "GRAVITY_ANCHOR_WEST"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityanchor",
+      "data": 32767
+    },
+    "name": "GRAVITY_ANCHOR_ANY"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityingot",
+      "data": 0
+    },
+    "name": "GRAVITY_INGOT"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitypearl",
+      "data": 0
+    },
+    "name": "GRAVITY_PEARL"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitydust",
+      "data": 0
+    },
+    "name": "GRAVITY_DUST"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:spacetimeanomaly",
+      "data": 0
+    },
+    "name": "SPACETIME_ANOMALY"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:armourpaste",
+      "data": 0
+    },
+    "name": "ARMOUR_PASTE"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityboots",
+      "data": 0
+    },
+    "name": "GRAVITY_BOOTS"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitychestplate",
+      "data": 0
+    },
+    "name": "GRAVITY_CHESTPLATE"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityhelmet",
+      "data": 0
+    },
+    "name": "GRAVITY_HELMET"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravityleggings",
+      "data": 0
+    },
+    "name": "GRAVITY_LEGGINGS"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitygoggles",
+      "data": 0
+    },
+    "name": "GRAVITY_GOGGLES"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:destabilisedgravitydust",
+      "data": 0
+    },
+    "name": "DESTABILISED_GRAVITY_DUST"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:restabilisedgravitydust",
+      "data": 0
+    },
+    "name": "RESTABILISED_GRAVITY_DUST"
+  },
+  {
+    "ingredient": {
+      "type": "minecraft:item_nbt",
+      "item": "forge:bucketfilled",
+      "nbt": {
+        "FluidName": "liquidantimass",
+        "Amount": 1000
+      }
+    },
+    "name": "LIQUID_ANTI_MASS_BUCKET"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitydustinducer",
+      "data": 0
+    },
+    "name": "GRAVITY_DUST_INDUCER"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitygenerator",
+      "data": 0
+    },
+    "name": "WEAK_GRAVITY_GENERATOR"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitygenerator",
+      "data": 1
+    },
+    "name": "NORMAL_GRAVITY_GENERATOR"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitygenerator",
+      "data": 2
+    },
+    "name": "STRONG_GRAVITY_GENERATOR"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitygenerator",
+      "data": 4
+    },
+    "name": "REVERSED_WEAK_GRAVITY_GENERATOR"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitygenerator",
+      "data": 5
+    },
+    "name": "REVERSED_NORMAL_GRAVITY_GENERATOR"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:gravitygenerator",
+      "data": 6
+    },
+    "name": "REVERSED_STRONG_GRAVITY_GENERATOR"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:restabilisedgravitydust_block",
+      "data": 0
+    },
+    "name": "RESTABILISED_GRAVITY_DUST_BLOCK"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:weakgravityplate",
+      "data": 0
+    },
+    "name": "WEAK_GRAVITY_PLATE"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:weakgravityplate",
+      "data": 1
+    },
+    "name": "GLOWING_WEAK_GRAVITY_PLATE"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:normalgravityplate",
+      "data": 0
+    },
+    "name": "NORMAL_GRAVITY_PLATE"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:normalgravityplate",
+      "data": 1
+    },
+    "name": "GLOWING_NORMAL_GRAVITY_PLATE"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:stronggravityplate",
+      "data": 0
+    },
+    "name": "STRONG_GRAVITY_PLATE"
+  },
+  {
+    "ingredient": {
+      "item": "gravitymod:stronggravityplate",
+      "data": 1
+    },
+    "name": "GLOWING_STRONG_GRAVITY_PLATE"
+  },
+  {
+    "ingredient": [
+      {
+        "type": "forge:ore_dict",
+        "ore": "oreGravity"
+      }
+    ],
+    "name": "ORE_GRAVITY"
+  }
+]

@@ -19,14 +19,14 @@ public class FallOutOfWorldUpwardsListenerCommon {
 
     // Slow damage (same as drown damage (reduced by protection/resistance))
     private static final DamageSource[] SOURCES_ASPHYXIATION =
-            createDamageSources("mysttmtgravitymod_asphyxiation", 2, true, false, false);
+            createDamageSources("gravitymod_asphyxiation", 2, true, false, false);
     // Fast damage
     private static final DamageSource[] SOURCES_BLOOD_BOIL =
-            createDamageSources("mysttmtgravitymod_bloodboil", 2, true, true, true);
+            createDamageSources("gravitymod_bloodboil", 2, true, true, true);
     // Instant death
     // Has all the cool death messages
     private static final DamageSource[] SOURCES_OUTERSPACE =
-            createDamageSources("mysttmtgravitymod_outerspace", 10, true, true, true);
+            createDamageSources("gravitymod_outerspace", 10, true, true, true);
     private static final Random SHARED_RANDOM = new Random();
     private final WeakHashMap<EntityPlayer, Integer> serverMap = new WeakHashMap<>();
 

@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "mysttmtgravitymod:items/gravitycontroller_overlay_personal",
-    "layer1": "mysttmtgravitymod:items/gravitycontroller_overlay_west"
-  }
-}

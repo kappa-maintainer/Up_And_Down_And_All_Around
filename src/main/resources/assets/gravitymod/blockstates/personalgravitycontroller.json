@@ -1,0 +1,28 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "visible": {
+      "up": {"model": "gravitymod:personalgravitycontroller_up"},
+      "up_on": {"model": "gravitymod:personalgravitycontroller_up_on"},
+      "down": {"model": "gravitymod:personalgravitycontroller_down"},
+      "down_on": {"model": "gravitymod:personalgravitycontroller_down_on"},
+      "north": {"model": "gravitymod:personalgravitycontroller_north"},
+      "north_on": {"model": "gravitymod:personalgravitycontroller_north_on"},
+      "east": {"model": "gravitymod:personalgravitycontroller_east"},
+      "east_on": {"model": "gravitymod:personalgravitycontroller_east_on"},
+      "south": {"model": "gravitymod:personalgravitycontroller_south"},
+      "south_on": {"model": "gravitymod:personalgravitycontroller_south_on"},
+      "west": {"model": "gravitymod:personalgravitycontroller_west"},
+      "west_on": {"model": "gravitymod:personalgravitycontroller_west_on"}
+    },
+    "active": {
+      "up": {"submodel": "gravitymod:personalgravitycontroller_up_overlay"},
+      "down": {"submodel": "gravitymod:personalgravitycontroller_down_overlay"},
+      "north": {"submodel": "gravitymod:personalgravitycontroller_north_overlay"},
+      "east": {"submodel": "gravitymod:personalgravitycontroller_east_overlay"},
+      "south": {"submodel": "gravitymod:personalgravitycontroller_south_overlay"},
+      "west": {"submodel": "gravitymod:personalgravitycontroller_west_overlay"},
+      "none": {}
+    }
+  }
+}

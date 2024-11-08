@@ -73,7 +73,7 @@ public class ItemGravityFieldGoggles extends ItemArmor implements IBauble, IRend
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.gravityfieldgoggles.line1"));
+        tooltip.add(I18n.format("mouseovertext.gravitymod.gravityfieldgoggles.line1"));
     }
 
     @Override

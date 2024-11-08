@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class GUIContainerGravityGenerator extends GuiContainer {
     private static final ResourceLocation TEXTURE = new ResourceLocation(GravityMod.MOD_ID, "textures/gui/container/gravitygenerator.png");
     private static final int TEXT_LEFT_START = 8;
-    private static final String directionLangPrefix = "mysttmtgravitymod.";
+    private static final String directionLangPrefix = "gravitymod.";
     private final int buttonLeftStart;
     private final ContainerGravityGenerator containerGravityGenerator;
     private final ArrayList<GuiLabel> labels = new ArrayList<>();
@@ -225,13 +225,13 @@ public class GUIContainerGravityGenerator extends GuiContainer {
         String generatorLangKey;
         switch (gravityTier) {
             case WEAK:
-                generatorLangKey = "tile.mysttmtgravitymod.gravitygenerator.weak.name";
+                generatorLangKey = "tile.gravitymod.gravitygenerator.weak.name";
                 break;
             case NORMAL:
-                generatorLangKey = "tile.mysttmtgravitymod.gravitygenerator.normal.name";
+                generatorLangKey = "tile.gravitymod.gravitygenerator.normal.name";
                 break;
             default://case STRONG:
-                generatorLangKey = "tile.mysttmtgravitymod.gravitygenerator.strong.name";
+                generatorLangKey = "tile.gravitymod.gravitygenerator.strong.name";
                 break;
         }
 
@@ -251,7 +251,7 @@ public class GUIContainerGravityGenerator extends GuiContainer {
         EnumFacing facing = tileGravityGenerator.getFacing();
         EnumGravityDirection direction = EnumGravityDirection.fromEnumFacing(facing.getOpposite());
 
-        String directionLangPrefix = "mysttmtgravitymod.";
+        String directionLangPrefix = "gravitymod.";
 
         EnumGravityDirection positive = direction.getRelativePositiveY();
         text = I18n.format("gui.gravitygenerator.heighttext", I18n.format(directionLangPrefix + positive.getName())) + " (Y)";

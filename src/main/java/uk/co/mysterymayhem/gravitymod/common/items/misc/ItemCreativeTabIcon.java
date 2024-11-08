@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import uk.co.mysterymayhem.gravitymod.common.registries.IGravityModItem;
-import uk.co.mysterymayhem.gravitymod.common.util.ReflectionLambdas;
 import uk.co.mysterymayhem.mystlib.util.KeyBindingUtil;
 
 import java.util.List;
@@ -91,7 +90,7 @@ public class ItemCreativeTabIcon extends Item implements IGravityModItem<ItemCre
 
     @Override
     public boolean onEntityItemUpdate(EntityItem entityItem) {
-        int age = ReflectionLambdas.get_EntityItem$age.applyAsInt(entityItem);
+        int age = entityItem.age;
         if (entityItem.ticksExisted != age + 1) {
             entityItem.lifespan = age + ENTITY_LIFETIME_TICKS;
             entityItem.ticksExisted = age + 1;

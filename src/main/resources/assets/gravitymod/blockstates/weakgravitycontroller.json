@@ -1,0 +1,28 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "visible": {
+      "up": {"model": "gravitymod:weakgravitycontroller_up"},
+      "up_on": {"model": "gravitymod:weakgravitycontroller_up_on"},
+      "down": {"model": "gravitymod:weakgravitycontroller_down"},
+      "down_on": {"model": "gravitymod:weakgravitycontroller_down_on"},
+      "north": {"model": "gravitymod:weakgravitycontroller_north"},
+      "north_on": {"model": "gravitymod:weakgravitycontroller_north_on"},
+      "east": {"model": "gravitymod:weakgravitycontroller_east"},
+      "east_on": {"model": "gravitymod:weakgravitycontroller_east_on"},
+      "south": {"model": "gravitymod:weakgravitycontroller_south"},
+      "south_on": {"model": "gravitymod:weakgravitycontroller_south_on"},
+      "west": {"model": "gravitymod:weakgravitycontroller_west"},
+      "west_on": {"model": "gravitymod:weakgravitycontroller_west_on"}
+    },
+    "active": {
+      "up": {"submodel": "gravitymod:weakgravitycontroller_up_overlay"},
+      "down": {"submodel": "gravitymod:weakgravitycontroller_down_overlay"},
+      "north": {"submodel": "gravitymod:weakgravitycontroller_north_overlay"},
+      "east": {"submodel": "gravitymod:weakgravitycontroller_east_overlay"},
+      "south": {"submodel": "gravitymod:weakgravitycontroller_south_overlay"},
+      "west": {"submodel": "gravitymod:weakgravitycontroller_west_overlay"},
+      "none": {}
+    }
+  }
+}

@@ -12,8 +12,8 @@ public class Vec3dHelper {
     private static final float ONE_HUNDRED_EIGHTY_OVER_PI_FLOAT = (float)(180d / Math.PI);
     public static final int PITCH = 0;
     public static final int YAW = 1;
-    private static final double FRAC_BIAS = ReflectionLambdas.get_MathHelper$FRAC_BIAS.getAsDouble();
-    private static final double[] ASINE_TAB = ReflectionLambdas.get_MathHelper$ASINE_TAB.get();
+    private static final double FRAC_BIAS = MathHelper.FRAC_BIAS;
+    private static final double[] ASINE_TAB = MathHelper.ASINE_TAB;
 
     public static double getAbsolutePitchPrecise(Vec3d lookVec) {
         return -(Math.asin(lookVec.y) * (180D / Math.PI));

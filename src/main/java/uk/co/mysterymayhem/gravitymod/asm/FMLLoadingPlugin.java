@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by Mysteryem on 2016-08-16.
  */
 @IFMLLoadingPlugin.TransformerExclusions({"uk.co.mysterymayhem.gravitymod.asm.FMLLoadingPlugin"})
-@IFMLLoadingPlugin.Name("mysttmtgravitymod")
+@IFMLLoadingPlugin.Name("gravitymod")
 //@IFMLLoadingPlugin.MCVersion("1.12.2")
 // Extra late so we patch after most other mods so we can more easily tell if a patch has failed (I don't trust other mods to detect when they fail)
 @IFMLLoadingPlugin.SortingIndex(value = 1001)

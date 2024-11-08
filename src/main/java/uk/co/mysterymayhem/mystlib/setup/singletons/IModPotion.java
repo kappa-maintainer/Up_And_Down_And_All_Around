@@ -10,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
-import uk.co.mysterymayhem.gravitymod.common.util.ReflectionLambdas;
 
 /**
  * Created by Mysteryem on 15/03/2017.
@@ -35,7 +34,7 @@ public interface IModPotion<T extends Potion & IModPotion<T>> extends IModObject
     default T setIconIndex(int index) {
         T potion = this.getPotion();
         int numIconsPerRow = this.getNumIconsPerRow();
-        ReflectionLambdas.Potion$setIconIndex.apply(potion, index % numIconsPerRow, index / numIconsPerRow);
+        potion.setIconIndex(index % numIconsPerRow, index / numIconsPerRow);
         return potion;
     }
 

@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "mysttmtgravitymod:items/weakgravitycontroller_bg_off",
-    "layer1": "mysttmtgravitymod:items/gravitycontroller_up"
-  }
-}

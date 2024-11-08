@@ -20,7 +20,7 @@ import java.util.List;
 @SideOnly(Side.CLIENT)
 public class GravityModGuiScreen extends GuiConfig {
     public GravityModGuiScreen(GuiScreen parent) {
-        super(parent, getConfigElements(), GravityMod.MOD_ID, false, false, I18n.format("config.mysttmtgravitymod.title"));
+        super(parent, getConfigElements(), GravityMod.MOD_ID, false, false, I18n.format("config.gravitymod.title"));
 
     }
 
@@ -38,7 +38,7 @@ public class GravityModGuiScreen extends GuiConfig {
         highestLevel.add(getCategory(ConfigHandler.CATEGORY_WORLD_GEN));
         highestLevel.add(getCategory(ConfigHandler.CATEGORY_LOOT));
         highestLevel.add(getCategory(ConfigHandler.CATEGORY_MOD_COMPAT));
-        highestLevel.add(new DummyConfigElement.DummyCategoryElement("blocksAndItems", "config.mysttmtgravitymod.menu.blocksAndItems", blockAndItemMenu));
+        highestLevel.add(new DummyConfigElement.DummyCategoryElement("blocksAndItems", "config.gravitymod.menu.blocksAndItems", blockAndItemMenu));
         highestLevel.add(getCategory(ConfigHandler.CATEGORY_FALLOUTOFWORLD));
         highestLevel.add(getCategory(ConfigHandler.CATEGORY_CLIENT));
         highestLevel.add(getCategory(ConfigHandler.CATEGORY_SERVER));

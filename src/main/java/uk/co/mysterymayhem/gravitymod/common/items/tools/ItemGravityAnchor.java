@@ -57,13 +57,13 @@ public class ItemGravityAnchor extends Item implements ITickOnMouseCursor, IGrav
         KeyBinding keyBindSneak = Minecraft.getMinecraft().gameSettings.keyBindSneak;
         if (KeyBindingUtil.isKeyPressed(keyBindSneak)) {
 //            tooltip.add("Affects gravity in inventory or on mouse cursor");
-            tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.gravityanchor.sneak.line1"));
+            tooltip.add(I18n.format("mouseovertext.gravitymod.gravityanchor.sneak.line1"));
 //            tooltip.add("Take care when crafting");
-            tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.gravityanchor.sneak.line2"));
+            tooltip.add(I18n.format("mouseovertext.gravitymod.gravityanchor.sneak.line2"));
         }
         else {
-            tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.gravityanchor.line1"));
-            tooltip.add(keyBindSneak.getDisplayName() + I18n.format("mouseovertext.mysttmtgravitymod.presskeyfordetails"));
+            tooltip.add(I18n.format("mouseovertext.gravitymod.gravityanchor.line1"));
+            tooltip.add(keyBindSneak.getDisplayName() + I18n.format("mouseovertext.gravitymod.presskeyfordetails"));
         }
     }
 

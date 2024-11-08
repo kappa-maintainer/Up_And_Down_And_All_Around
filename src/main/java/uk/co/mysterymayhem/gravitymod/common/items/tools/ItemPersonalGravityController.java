@@ -25,7 +25,7 @@ public class ItemPersonalGravityController extends ItemAbstractGravityController
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced) {
-        tooltip.add(I18n.format("mouseovertext.mysttmtgravitymod.personalgravitycontroller"));
+        tooltip.add(I18n.format("mouseovertext.gravitymod.personalgravitycontroller"));
         EntityPlayerSP player = Minecraft.getMinecraft().player;
         if (player != null) {
             ItemTooltipListener.addNormalGravityTooltip(tooltip, player);

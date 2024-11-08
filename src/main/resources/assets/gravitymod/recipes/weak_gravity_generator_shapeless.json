@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "gravitymod:gravitygenerator",
+    "data": 0
+  },
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "item": "#REVERSED_WEAK_GRAVITY_GENERATOR"
+    }
+  ]
+}

@@ -19,7 +19,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import uk.co.mysterymayhem.gravitymod.common.config.ConfigHandler;
 import uk.co.mysterymayhem.gravitymod.common.registries.IGravityModEntityClassWrapper;
 import uk.co.mysterymayhem.gravitymod.common.registries.StaticItems;
-import uk.co.mysterymayhem.gravitymod.common.util.ReflectionLambdas;
 import uk.co.mysterymayhem.mystlib.annotations.UsedReflexively;
 
 /**
@@ -211,8 +210,8 @@ public class EntityFloatingItem extends EntityItem {
         // Only spawn the new item if setDead wasn't called due to the entity despawning
 
         if (!this.world.isRemote
-                && ReflectionLambdas.get_EntityItem$age.applyAsInt(this) < this.lifespan
-                && ReflectionLambdas.get_EntityItem$health.applyAsInt(this) > 0
+                && this.age < this.lifespan
+                && this.health > 0
                 && !this.getItem().isEmpty()
                 /*&& stack.stackSize <= 0*/) {
             World world;
