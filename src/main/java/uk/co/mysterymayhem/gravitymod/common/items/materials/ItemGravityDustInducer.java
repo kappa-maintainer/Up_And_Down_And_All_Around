@@ -1,6 +1,6 @@
 package uk.co.mysterymayhem.gravitymod.common.items.materials;
 
-import mcp.MethodsReturnNonnullByDefault;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
@@ -223,7 +223,7 @@ public class ItemGravityDustInducer extends Item implements IGravityModItem<Item
         }
 
         @Override
-        @MethodsReturnNonnullByDefault
+        @Nonnull
         public ItemStack getCraftingResult(InventoryCrafting inv) {
             ItemStack armourStack = ItemStack.EMPTY;
             for (int i = 0; i < inv.getSizeInventory(); i++) {

@@ -1,10 +1,12 @@
 package uk.co.mysterymayhem.gravitymod.asm;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-import zone.rong.mixinbooter.IEarlyMixinLoader;
+import top.outlands.foundation.TransformerDelegate;
+import uk.co.mysterymayhem.gravitymod.GravityMod;
+import uk.co.mysterymayhem.gravitymod.asm.transformers.EntityPlayerSPTransformer;
+import uk.co.mysterymayhem.gravitymod.asm.transformers.SoundManagerTransformer;
+import uk.co.mysterymayhem.gravitymod.asm.transformers.SuperClassReplacingTransformer;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,15 +14,26 @@ import java.util.Map;
  */
 @IFMLLoadingPlugin.TransformerExclusions({"uk.co.mysterymayhem.gravitymod.asm.FMLLoadingPlugin"})
 @IFMLLoadingPlugin.Name("gravitymod")
-//@IFMLLoadingPlugin.MCVersion("1.12.2")
-// Extra late so we patch after most other mods so we can more easily tell if a patch has failed (I don't trust other mods to detect when they fail)
-@IFMLLoadingPlugin.SortingIndex(value = 1001)
-public class FMLLoadingPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
+@IFMLLoadingPlugin.MCVersion("1.12.2")
+public class FMLLoadingPlugin implements IFMLLoadingPlugin {
 
     @Override
     public String[] getASMTransformerClass() {
-        //return new String[]{Transformer.class.getName()};
-        return new String[]{};
+        TransformerDelegate.registerExplicitTransformer(
+            new SuperClassReplacingTransformer(),
+            "net.minecraft.client.entity.AbstractClientPlayer",
+            "net.minecraft.entity.player.EntityPlayerMP"
+        );
+        TransformerDelegate.registerExplicitTransformer(
+            new SoundManagerTransformer(),
+            "net.minecraft.client.audio.SoundManager"
+        );
+        TransformerDelegate.registerExplicitTransformer(
+            new EntityPlayerSPTransformer(),
+            "net.minecraft.client.entity.EntityPlayerSP"
+        );
+        return new String[]{Transformer.class.getName()};
+        //return null;
     }
 
     @Override
@@ -43,11 +56,5 @@ public class FMLLoadingPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
     public void injectData(Map<String, Object> data) {
         // nothing to do here
     }
-
-    @Override
-    public List<String> getMixinConfigs() {
-        return Collections.singletonList("gravitymod.mixins.json");
-    }
-
 
 }

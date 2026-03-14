@@ -628,7 +628,7 @@ public abstract class EntityPlayerWithGravity extends EntityPlayer {
     @SuppressWarnings("WeakerAccess")
     @SideOnly(Side.CLIENT)
     protected void updateAutoJump(float xChange, float zChange) {
-        Transformer.logger.warn("Erroneously tried to call func_189810_i(auto-jump method) from " + this);
+        Transformer.logger.warn("Erroneously tried to call func_189810_i(auto-jump method) from {}", this);
 //        throw new RuntimeException("Unreachable code reached");
     }
 

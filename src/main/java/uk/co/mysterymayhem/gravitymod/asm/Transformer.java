@@ -37,7 +37,7 @@ public class Transformer implements IClassTransformer {
 
     // Maps classes to their patch methods
     private static final HashMap<String, ClassPatcher> classNameToMethodMap = new HashMap<>();
-    public static final Logger logger = LogManager.getLogger("UpAndDown-Core", StringFormatterMessageFactory.INSTANCE);
+    public static final Logger logger = LogManager.getLogger("UpAndDown-Core");
 
     public static final boolean DEBUG_AUTO_JUMP = false;
     //Set up bit mask
@@ -52,13 +52,13 @@ public class Transformer implements IClassTransformer {
 
     static {
         // Superclass replaced with EntityPlayerWithGravity
-        addClassPatch(new PatchEntityPlayerSubClass(Ref.AbstractClientPlayer));
+        //addClassPatch(new PatchEntityPlayerSubClass(Ref.AbstractClientPlayer));
         // Superclass replaced with EntityPlayerWithGravity
-        addClassPatch(new PatchEntityPlayerSubClass(Ref.EntityPlayerMP));
+        //addClassPatch(new PatchEntityPlayerSubClass(Ref.EntityPlayerMP));
         // Patches setListener
-        addClassPatch(new PatchSoundManager());
+        //addClassPatch(new PatchSoundManager());
         // Patches onUpdateWalkingPlayer, onLivingUpdate, isHeadspaceFree, updateAutoJump, moveEntity
-        addClassPatch(new PatchEntityPlayerSP());
+        //addClassPatch(new PatchEntityPlayerSP());
         // Patches handlePlayerPosLook
         addClassPatch(new PatchNetHandlerPlayClient());
         // Patches getMouseOver, drawNameplate
@@ -361,5 +361,10 @@ public class Transformer implements IClassTransformer {
             log("Patched class  %s", transformedClassName);
             return toReturn;
         }
+    }
+    
+    @Override
+    public int getPriority() {
+        return 2000;
     }
 }

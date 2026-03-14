@@ -28,14 +28,12 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             int numReplacements = 0;
             for (ListIterator<AbstractInsnNode> iterator = methodNode.instructions.iterator(); iterator.hasNext(); ) {
                 AbstractInsnNode next = iterator.next();
-                if (next instanceof FieldInsnNode) {
-                    FieldInsnNode fieldInsnNode = (FieldInsnNode)next;
+                if (next instanceof FieldInsnNode fieldInsnNode) {
                     if (Ref.AxisAlignedBB$minY_GET.is(fieldInsnNode)) {
                         if (iterator.hasPrevious()) {
                             iterator.previous();
                             AbstractInsnNode previous = iterator.previous();
-                            if (previous instanceof VarInsnNode) {
-                                VarInsnNode varInsnNode = (VarInsnNode)previous;
+                            if (previous instanceof VarInsnNode varInsnNode) {
                                 if (varInsnNode.var == 3) {
                                     /*
                                     Replace
@@ -328,8 +326,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
 
                         while (iterator.hasNext()) {
                             node = iterator.next();
-                            if (node instanceof MethodInsnNode) {
-                                MethodInsnNode methodInsnNode = (MethodInsnNode)node;
+                            if (node instanceof MethodInsnNode methodInsnNode) {
                                 if (Ref.EntityPlayer$getFoodStats.is(methodInsnNode)) {
                                     while (iterator.hasPrevious()) {
                                         AbstractInsnNode previous = iterator.previous();
@@ -373,6 +370,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             // aka foundFirstBlockPosGetY
             // No children
             this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 1");
                 if (Ref.BlockPos$getY.is(node)) {
                     iterator.remove();
                     iterator.add(new VarInsnNode(Opcodes.ALOAD, 0));
@@ -384,6 +382,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
 
             // Root node
             InsnPatcher patch1 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 2");
                 if (node.getOpcode() == Opcodes.NEW && node instanceof TypeInsnNode && ((TypeInsnNode)node).desc.equals(Ref.Vec3d.toString())) {
                     iterator.remove();
                     while (true) {
@@ -403,6 +402,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             });
 
             InsnPatcher patch2 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 3");
                 if (Ref.EntityPlayerSP$posX_GET.is(node)) {
                     Ref.Hooks$getOriginRelativePosX.replace(iterator);
                     return true;
@@ -411,6 +411,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             });
 
             InsnPatcher patch3 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 4");
                 if (Ref.EntityPlayerSP$posZ_GET.is(node)) {
                     Ref.Hooks$getOriginRelativePosZ.replace(iterator);
                     return true;
@@ -419,12 +420,14 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             });
 
             InsnPatcher patch4 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 5");
                 if (Ref.EntityPlayerSP$getEntityBoundingBox.is(node)) {
                     iterator.remove();
                     iterator.next();
                     iterator.remove(); // GETFIELD net/minecraft/util/math/AxisAlignedBB.minY : D
                     Ref.Hooks$getOriginRelativePosY.addTo(iterator);
-                    iterator.next(); // DLOAD ? (likely 7)
+                    iterator.next(); // DLOAD ? (likely 7) actually ALOAD this
+                    //iterator.next(); // getfield net/minecraft/client/entity/EntityPlayerSP.posZ D
                     iterator.next(); // INVOKESPECIAL net/minecraft/util/math/Vec3d.<init> (DDD)V
                     iterator.add(new VarInsnNode(Opcodes.ALOAD, 0)); // Have to pass 'this' to adjustVec as well
                     Ref.Hooks$adjustVec.addTo(iterator);
@@ -434,6 +437,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             });
 
             InsnPatcher patch5 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 6");
                 if (Ref.EntityPlayerSP$rotationYaw_GET.is(node)) {
                     Ref.Hooks$getRelativeYaw.replace(iterator);
                     return true;
@@ -446,6 +450,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             final String vec3d12_var_key = "vec3d12_var";
 
             InsnPatcher patch6 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 7");
                 if (Ref.Vec3d$scale.is(node)) {
                     node = iterator.next();
                     if (node instanceof VarInsnNode && node.getOpcode() == Opcodes.ASTORE) {
@@ -461,6 +466,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             });
 
             InsnPatcher patch7 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 8");
                 if (Ref.EntityPlayerSP$getForward.is(node)) {
                     Ref.Hooks$getRelativeLookVec.replace(iterator);
                     return true;
@@ -469,6 +475,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             });
 
             InsnPatcher patch8 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 9");
                 if (node.getOpcode() == Opcodes.NEW && node instanceof TypeInsnNode && ((TypeInsnNode)node).desc.equals(Ref.BlockPos.toString())) {
                     int vec3d12_var = (Integer)PatchEntityPlayerSP.this.getData(vec3d12_var_key);
 
@@ -498,6 +505,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             });
 
             InsnPatcher patch9 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 10");
                 if (node.getOpcode() == Opcodes.NEW && node instanceof TypeInsnNode && ((TypeInsnNode)node).desc.equals(Ref.AxisAlignedBB.toString())) {
                     iterator.remove();
                     node = iterator.next();
@@ -514,6 +522,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             });
 
             InsnPatcher patch10 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 11");
                 if (Ref.AxisAlignedBB$INIT.is(node)) {
                     iterator.remove();
                     iterator.add(new VarInsnNode(Opcodes.ALOAD, 0));
@@ -524,6 +533,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             });
 
             InsnPatcher patch11 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 12");
                 if (node.getOpcode() == Opcodes.NEW && node instanceof TypeInsnNode && ((TypeInsnNode)node).desc.equals(Ref.Vec3d.toString())) {
                     iterator.next(); // DUP
                     iterator.next(); // DCONST_0
@@ -550,6 +560,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             });
 
             InsnPatcher patch12 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 13");
                 if (Ref.AxisAlignedBB$maxY_GET.is(node)) {
                     iterator.remove();
                     iterator.add(new VarInsnNode(Opcodes.ALOAD, 0));
@@ -562,6 +573,7 @@ public class PatchEntityPlayerSP extends ClassPatcher {
             InsnPatcher patch12Repeat = this.addInsnPatch(patch12.copy());
 
             InsnPatcher patch13 = this.addInsnPatch((node, iterator) -> {
+                Transformer.logger.info("patch 14");
                 if (Ref.AxisAlignedBB$minY_GET.is(node)) {
                     iterator.remove();
                     iterator.add(new VarInsnNode(Opcodes.ALOAD, 0));

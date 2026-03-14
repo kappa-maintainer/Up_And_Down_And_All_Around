@@ -34,7 +34,7 @@ import uk.co.mysterymayhem.gravitymod.common.modsupport.ModSupport;
 public class GravityMod {
 
     // M.m.p
-    public static final String VERSION = Tags.VERSION;
+    public static final String VERSION = Reference.VERSION;
     // [M.m,M.m+1), e.g. [2.5,2.6)
     public static final String ACCEPTABLE_VERSIONS = "[" + VERSION + ",)";
     public static final String MOD_ID = "gravitymod";

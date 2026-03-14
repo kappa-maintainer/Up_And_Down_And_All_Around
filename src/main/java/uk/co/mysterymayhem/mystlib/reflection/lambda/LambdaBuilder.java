@@ -1,6 +1,6 @@
 package uk.co.mysterymayhem.mystlib.reflection.lambda;
 
-import sun.reflect.Reflection;
+import net.lenni0451.reflect.Fields;
 import uk.co.mysterymayhem.mystlib.reflection.LookupHelper;
 
 import java.lang.invoke.*;
@@ -93,18 +93,7 @@ public class LambdaBuilder {
             contextForClassLoading = declaringClass;
         } catch (ClassNotFoundException e) {
             MethodHandleInfo methodHandleInfo = TRUSTED_LOOKUP.revealDirect(fieldHandle);
-            Field fieldToCall = methodHandleInfo.reflectAs(Field.class, TRUSTED_LOOKUP);
-            boolean accessible = Reflection.verifyMemberAccess(interfaceMethod.getDeclaringClass(), fieldToCall.getDeclaringClass(), fieldToCall, fieldToCall.getModifiers());
-            if (accessible) {
-                contextForClassLoading = functionalInterface;
-            }
-            else {
-                throw new LambdaBuildException(
-                        "\n----------\n" +
-                                "The classloader for " + declaringClass + " cannot access " + functionalInterface + " so an anonymous class with private access cannot be created.\n"
-                                + "And " + functionalInterface + " cannot access " + fieldToCall + " so the lambda cannot be created.\n" +
-                                "----------", e);
-            }
+            contextForClassLoading = functionalInterface;
         }
 
         CallSite metafactory = FieldLambdaMetafactory.metaFactory(
@@ -289,18 +278,7 @@ public class LambdaBuilder {
             Class.forName(functionalInterface.getName(), false, declaringClass.getClassLoader());
             return declaringClass;
         } catch (ClassNotFoundException e) {
-            Method methodToCall = methodHandleInfo.reflectAs(Method.class, TRUSTED_LOOKUP);
-            boolean accessible = Reflection.verifyMemberAccess(interfaceMethod.getDeclaringClass(), methodToCall.getDeclaringClass(), methodToCall, methodToCall.getModifiers());
-            if (accessible) {
-                return functionalInterface;
-            }
-            else {
-                throw new LambdaBuildException(
-                        "\n----------\n" +
-                                "The classloader for '" + declaringClass + "' cannot access '" + functionalInterface + "' so an anonymous class with private access cannot be created.\n"
-                                + "And '" + functionalInterface + "' cannot access '" + methodToCall + "' so the lambda cannot be created.\n" +
-                                "----------", e);
-            }
+            return functionalInterface;
         }
     }
 

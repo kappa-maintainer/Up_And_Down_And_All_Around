@@ -1,6 +1,7 @@
 package uk.co.mysterymayhem.mystlib.reflection.lambda;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
+import net.lenni0451.reflect.ClassLoaders;
 import org.objectweb.asm.*;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.util.TraceClassVisitor;
@@ -149,7 +150,7 @@ public class FieldLambdaMetafactory {
 
         // Loads the class with the same classloader and privileges as this.targetClass
         // So the class can access private fields/methods/constructors and use INVOKESPECIAL instructions with method
-        Class<?> innerClass = UNSAFE.defineAnonymousClass(this.targetClass, classBytes, null);
+        Class<?> innerClass = ClassLoaders.defineAnonymousClass(this.targetClass, classBytes);
 
         Constructor<?>[] constructors = innerClass.getDeclaredConstructors();
         if (constructors.length == 1) {

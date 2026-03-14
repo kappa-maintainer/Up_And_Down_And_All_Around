@@ -26,8 +26,7 @@ public class FieldInsn extends FieldInsnNode implements IDeobfAwareInstruction {
 
     @Override
     public boolean is(AbstractInsnNode abstractInsnNode) {
-        if (abstractInsnNode instanceof FieldInsnNode) {
-            FieldInsnNode fieldInsnNode = (FieldInsnNode)abstractInsnNode;
+        if (abstractInsnNode instanceof FieldInsnNode fieldInsnNode) {
             return this.is(fieldInsnNode);
         }
         return false;
@@ -49,7 +48,7 @@ public class FieldInsn extends FieldInsnNode implements IDeobfAwareInstruction {
 
     @Override
     public String toString() {
-        return "" + this.getOpcode() + " " + this.owner + "." + this.name + " " + this.desc;
+        return this.getOpcode() + " " + this.owner + "." + this.name + " " + this.desc;
     }
 
 
