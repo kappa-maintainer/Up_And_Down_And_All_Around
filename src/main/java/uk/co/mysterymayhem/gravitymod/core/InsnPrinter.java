@@ -1,4 +1,4 @@
-package uk.co.mysterymayhem.gravitymod.core.transformers;
+package uk.co.mysterymayhem.gravitymod.core;
 
 import org.objectweb.asm.util.Printer;
 import org.objectweb.asm.util.Textifier;
