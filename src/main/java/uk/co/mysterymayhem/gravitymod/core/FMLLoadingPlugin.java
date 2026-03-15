@@ -1,20 +1,20 @@
-package uk.co.mysterymayhem.gravitymod.asm;
+package uk.co.mysterymayhem.gravitymod.core;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import top.outlands.foundation.TransformerDelegate;
-import uk.co.mysterymayhem.gravitymod.GravityMod;
-import uk.co.mysterymayhem.gravitymod.asm.transformers.EntityPlayerSPTransformer;
-import uk.co.mysterymayhem.gravitymod.asm.transformers.SoundManagerTransformer;
-import uk.co.mysterymayhem.gravitymod.asm.transformers.SuperClassReplacingTransformer;
+import uk.co.mysterymayhem.gravitymod.asm.Transformer;
+import uk.co.mysterymayhem.gravitymod.core.transformers.EntityPlayerSPTransformer;
+import uk.co.mysterymayhem.gravitymod.core.transformers.SoundManagerTransformer;
+import uk.co.mysterymayhem.gravitymod.core.transformers.SuperClassReplacingTransformer;
 
 import java.util.Map;
 
 /**
  * Created by Mysteryem on 2016-08-16.
  */
-@IFMLLoadingPlugin.TransformerExclusions({"uk.co.mysterymayhem.gravitymod.asm.FMLLoadingPlugin"})
+@IFMLLoadingPlugin.TransformerExclusions({"uk.co.mysterymayhem.gravitymod.core.FMLLoadingPlugin"})
 @IFMLLoadingPlugin.Name("gravitymod")
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 public class FMLLoadingPlugin implements IFMLLoadingPlugin {

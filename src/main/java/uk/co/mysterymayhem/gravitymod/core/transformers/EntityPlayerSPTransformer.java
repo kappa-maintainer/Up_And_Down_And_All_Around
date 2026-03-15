@@ -1,4 +1,4 @@
-package uk.co.mysterymayhem.gravitymod.asm.transformers;
+package uk.co.mysterymayhem.gravitymod.core.transformers;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;

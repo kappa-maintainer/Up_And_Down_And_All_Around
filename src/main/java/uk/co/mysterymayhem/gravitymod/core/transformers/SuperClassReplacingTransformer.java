@@ -1,16 +1,11 @@
-package uk.co.mysterymayhem.gravitymod.asm.transformers;
+package uk.co.mysterymayhem.gravitymod.core.transformers;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.util.CheckClassAdapter;
 import top.outlands.foundation.IExplicitTransformer;
-import uk.co.mysterymayhem.gravitymod.asm.Ref;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 public class SuperClassReplacingTransformer implements IExplicitTransformer {
     private static final String classToReplace = "net/minecraft/entity/player/EntityPlayer";
