@@ -60,7 +60,7 @@ public class Transformer implements IClassTransformer {
         // Patches onUpdateWalkingPlayer, onLivingUpdate, isHeadspaceFree, updateAutoJump, moveEntity
         //addClassPatch(new PatchEntityPlayerSP());
         // Patches handlePlayerPosLook
-        addClassPatch(new PatchNetHandlerPlayClient());
+        //addClassPatch(new PatchNetHandlerPlayClient());
         // Patches getMouseOver, drawNameplate
         addClassPatch(new PatchEntityRenderer());
         // Patches doRender
