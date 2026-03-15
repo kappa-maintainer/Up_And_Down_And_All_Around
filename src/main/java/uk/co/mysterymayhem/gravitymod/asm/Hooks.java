@@ -105,8 +105,7 @@ public class Hooks {
      */
     public static AxisAlignedBB constructNewGAABBFrom2Vec3d(Vec3d first, Vec3d second, Entity entity) {
         AxisAlignedBB bb = entity.getEntityBoundingBox();
-        if (bb instanceof GravityAxisAlignedBB) {
-            GravityAxisAlignedBB gbb = (GravityAxisAlignedBB)bb;
+        if (bb instanceof GravityAxisAlignedBB gbb) {
             return new GravityAxisAlignedBB(gbb, first, second);
         }
         return new AxisAlignedBB(first, second);
@@ -165,8 +164,7 @@ public class Hooks {
      */
     public static BlockPos getImmutableBlockPosBelowEntity(Entity entity) {
         AxisAlignedBB entityBoundingBox = entity.getEntityBoundingBox();
-        if (entityBoundingBox instanceof GravityAxisAlignedBB) {
-            GravityAxisAlignedBB gBB = (GravityAxisAlignedBB)entityBoundingBox;
+        if (entityBoundingBox instanceof GravityAxisAlignedBB gBB) {
             return new BlockPos(gBB.offset(0, -0.20000000298023224D, 0).getOrigin());
         }
         else {
@@ -184,8 +182,7 @@ public class Hooks {
      */
     public static double getOriginRelativePosX(Entity entity) {
         AxisAlignedBB bb = entity.getEntityBoundingBox();
-        if (bb instanceof GravityAxisAlignedBB) {
-            GravityAxisAlignedBB gBB = (GravityAxisAlignedBB)bb;
+        if (bb instanceof GravityAxisAlignedBB gBB) {
             return gBB.getDirection().getInverseAdjustmentFromDOWNDirection().adjustLookVec(gBB.getOrigin()).x;
         }
         else {
@@ -200,8 +197,7 @@ public class Hooks {
      */
     public static double getOriginRelativePosY(Entity entity) {
         AxisAlignedBB bb = entity.getEntityBoundingBox();
-        if (bb instanceof GravityAxisAlignedBB) {
-            GravityAxisAlignedBB gBB = (GravityAxisAlignedBB)bb;
+        if (bb instanceof GravityAxisAlignedBB gBB) {
             return gBB.getDirection().getInverseAdjustmentFromDOWNDirection().adjustLookVec(gBB.getOrigin()).y;
         }
         else {
@@ -216,8 +212,7 @@ public class Hooks {
      */
     public static double getOriginRelativePosZ(Entity entity) {
         AxisAlignedBB bb = entity.getEntityBoundingBox();
-        if (bb instanceof GravityAxisAlignedBB) {
-            GravityAxisAlignedBB gBB = (GravityAxisAlignedBB)bb;
+        if (bb instanceof GravityAxisAlignedBB gBB) {
             return gBB.getDirection().getInverseAdjustmentFromDOWNDirection().adjustLookVec(gBB.getOrigin()).z;
         }
         else {
@@ -385,67 +380,6 @@ public class Hooks {
         }
         return axisAlignedBB;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /////////////////////////////////////////////////////////////////////////
@@ -934,8 +868,7 @@ public class Hooks {
 
     public static void setRelativeMotionZ(Entity entity, double value) {
         AxisAlignedBB entityBoundingBox = entity.getEntityBoundingBox();
-        if (entityBoundingBox instanceof GravityAxisAlignedBB) {
-            GravityAxisAlignedBB gBB = (GravityAxisAlignedBB)entityBoundingBox;
+        if (entityBoundingBox instanceof GravityAxisAlignedBB gBB) {
             EnumGravityDirection direction = gBB.getDirection();
 
             double[] doubles = direction.getInverseAdjustmentFromDOWNDirection().adjustXYZValues(entity.motionX, entity.motionY, entity.motionZ);
@@ -1330,22 +1263,16 @@ public class Hooks {
      */
     public static int getRelativeYOfBlockPos(BlockPos other, Entity entity) {
         AxisAlignedBB entityBoundingBox = entity.getEntityBoundingBox();
-        if (entityBoundingBox instanceof GravityAxisAlignedBB) {
-            switch (((GravityAxisAlignedBB)entityBoundingBox).getDirection()) {
-                case UP:
-                    return -other.getY();
-                case DOWN:
-                    return other.getY();
-                case SOUTH:
-                    return -other.getZ();
-                case WEST:
-                    return other.getX();
-                case NORTH:
-                    return other.getZ();
+        if (entityBoundingBox instanceof GravityAxisAlignedBB gbb) {
+            return switch (gbb.getDirection()) {
+                case UP -> -other.getY();
+                case DOWN -> other.getY();
+                case SOUTH -> -other.getZ();
+                case WEST -> other.getX();
+                case NORTH -> other.getZ();
 //                case EAST:
-                default:
-                    return -other.getX();
-            }
+                default -> -other.getX();
+            };
         } else {
             return other.getY();
         }
@@ -1370,23 +1297,18 @@ public class Hooks {
      */
     public static double getRelativeTopOfBB(AxisAlignedBB other, Entity entity) {
         AxisAlignedBB bb = entity.getEntityBoundingBox();
-        if (bb instanceof GravityAxisAlignedBB) {
-            switch(((GravityAxisAlignedBB) bb).getDirection()){
-                case UP:
-                    return -other.minY;
-                case DOWN:
-                    return other.maxY;
-                case SOUTH:
-                    return -other.minZ;
-                case WEST:
+        if (bb instanceof GravityAxisAlignedBB gbb) {
+            return switch (gbb.getDirection()) {
+                case UP -> -other.minY;
+                case DOWN -> other.maxY;
+                case SOUTH -> -other.minZ;
+                case WEST ->
                     //noinspection SuspiciousNameCombination
-                    return other.maxX;
-                case NORTH:
-                    return other.maxZ;
+                    other.maxX;
+                case NORTH -> other.maxZ;
 //                case EAST:
-                default:
-                    return -other.minX;
-            }
+                default -> -other.minX;
+            };
         }
         return other.maxY;
     }
@@ -1528,8 +1450,7 @@ public class Hooks {
 
     static boolean resetPositionToBB(EntityPlayer player) {
         AxisAlignedBB axisalignedbb = player.getEntityBoundingBox();
-        if (axisalignedbb instanceof GravityAxisAlignedBB) {
-            GravityAxisAlignedBB g_AxisAlignedBB = (GravityAxisAlignedBB)axisalignedbb;
+        if (axisalignedbb instanceof GravityAxisAlignedBB g_AxisAlignedBB) {
 //            float eyeHeight = player.getEyeHeight();
 //            double[] doubles = g_AxisAlignedBB.getDirection().adjustXYZValues(0, (double) eyeHeight, 0);
             Vec3d vec3d = g_AxisAlignedBB.getOrigin();//.add(doubles[0], doubles[1], doubles[2]);

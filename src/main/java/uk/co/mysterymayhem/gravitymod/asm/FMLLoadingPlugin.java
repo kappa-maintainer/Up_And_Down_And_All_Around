@@ -1,6 +1,8 @@
 package uk.co.mysterymayhem.gravitymod.asm;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import top.outlands.foundation.TransformerDelegate;
 import uk.co.mysterymayhem.gravitymod.GravityMod;
 import uk.co.mysterymayhem.gravitymod.asm.transformers.EntityPlayerSPTransformer;
@@ -16,6 +18,7 @@ import java.util.Map;
 @IFMLLoadingPlugin.Name("gravitymod")
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 public class FMLLoadingPlugin implements IFMLLoadingPlugin {
+    public static final Logger logger = LogManager.getLogger("UpAndDown-Core");
 
     @Override
     public String[] getASMTransformerClass() {
