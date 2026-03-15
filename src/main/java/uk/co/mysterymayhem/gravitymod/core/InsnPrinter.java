@@ -12,11 +12,11 @@ public class InsnPrinter {
     private static final Printer printer = new Textifier();
     private static final TraceMethodVisitor methodPrinter = new TraceMethodVisitor(printer);
 
-    public static String prettyprint(AbstractInsnNode insnNode) {
+    public static String prettyPrint(AbstractInsnNode insnNode) {
         insnNode.accept(methodPrinter);
         StringWriter sw = new StringWriter();
         printer.print(new PrintWriter(sw));
         printer.getText().clear();
-        return sw.toString();
+        return sw.toString().trim();
     }
 }
