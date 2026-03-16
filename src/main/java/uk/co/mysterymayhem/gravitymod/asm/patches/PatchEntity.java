@@ -9,8 +9,6 @@ import uk.co.mysterymayhem.gravitymod.asm.util.patching.ClassPatcher;
 import uk.co.mysterymayhem.gravitymod.asm.util.patching.InsnPatcher;
 import uk.co.mysterymayhem.gravitymod.asm.util.patching.MethodPatcher;
 
-import java.util.ListIterator;
-
 /**
  * Created by Mysteryem on 2017-02-02.
  */
@@ -42,19 +40,15 @@ public class PatchEntity extends ClassPatcher {
         // on the player's bounding box instead of those found in the world.
         this.addMethodPatch(Ref.Entity$move_name::is, methodNode -> {
             int numReplaced = 0;
-            for (ListIterator<AbstractInsnNode> iterator = methodNode.instructions.iterator(); iterator.hasNext(); /**/) {
-                AbstractInsnNode node = iterator.next();
-                if (node instanceof MethodInsnNode) {
-                    MethodInsnNode methodInsnNode = (MethodInsnNode)node;
+            for (AbstractInsnNode node : methodNode.instructions) {
+                if (node instanceof MethodInsnNode methodInsnNode) {
                     if (Ref.AxisAlignedBB$calculateXOffset.is(methodInsnNode)) {
                         Ref.Hooks$reverseXOffset.replace(methodInsnNode);
                         numReplaced++;
-                    }
-                    else if (Ref.AxisAlignedBB$calculateYOffset.is(methodInsnNode)) {
+                    } else if (Ref.AxisAlignedBB$calculateYOffset.is(methodInsnNode)) {
                         Ref.Hooks$reverseYOffset.replace(methodInsnNode);
                         numReplaced++;
-                    }
-                    else if (Ref.AxisAlignedBB$calculateZOffset.is(methodInsnNode)) {
+                    } else if (Ref.AxisAlignedBB$calculateZOffset.is(methodInsnNode)) {
                         Ref.Hooks$reverseZOffset.replace(methodInsnNode);
                         numReplaced++;
                     }
@@ -90,7 +84,7 @@ public class PatchEntity extends ClassPatcher {
                 // And it just so happens that our INVOKESTATIC instruction needs to have ALOAD 0 before it
                 // So we cut out a bunch of no longer used instructions and inserted our own instruction
                 // (hopefully it's fine to have local variables that are never used in bytecode)
-                for (; iterator.hasPrevious(); ) {
+                while (iterator.hasPrevious()) {
                     AbstractInsnNode previous = iterator.previous();
                     if (Ref.Entity$posX_GET.is(previous)) {
                         iterator.remove();
