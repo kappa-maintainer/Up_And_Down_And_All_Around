@@ -62,7 +62,7 @@ public class Transformer implements IClassTransformer {
         // Patches handlePlayerPosLook
         //addClassPatch(new PatchNetHandlerPlayClient());
         // Patches getMouseOver, drawNameplate
-        addClassPatch(new PatchEntityRenderer());
+        //addClassPatch(new PatchEntityRenderer());
         // Patches doRender
         addClassPatch(new PatchRenderLivingBase());
         // Patches moveEntity, moveRelative
