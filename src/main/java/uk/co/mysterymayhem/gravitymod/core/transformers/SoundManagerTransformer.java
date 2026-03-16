@@ -9,22 +9,20 @@ import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 import top.outlands.foundation.IExplicitTransformer;
+import uk.co.mysterymayhem.gravitymod.core.ObfableName;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SoundManagerTransformer implements IExplicitTransformer {
     
+    private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
     private static final Map<String, String> fieldMap = new HashMap<>(){
         {
-            put("prevRotationPitch", "getRelativePrevPitch");
-            put("field_70127_C", "getRelativePrevPitch");
-            put("prevRotationYaw", "getRelativePrevYaw");
-            put("field_70126_B", "getRelativePrevYaw");
-            put("rotationPitch", "getRelativePitch");
-            put("field_70125_A", "getRelativePitch");
-            put("rotationYaw", "getRelativeYaw");
-            put("field_70177_z", "getRelativeYaw");
+            put(ObfableName.get("prevRotationPitch", "field_70127_C"), "getRelativePrevPitch");
+            put(ObfableName.get("prevRotationYaw", "field_70126_B"), "getRelativePrevYaw");
+            put(ObfableName.get("rotationPitch", "field_70125_A"), "getRelativePitch");
+            put(ObfableName.get("rotationYaw", "field_70177_z"), "getRelativeYaw");
         }
     };
     
@@ -50,7 +48,7 @@ public class SoundManagerTransformer implements IExplicitTransformer {
                             node,
                             new MethodInsnNode(
                                 Opcodes.INVOKESTATIC,
-                                "uk/co/mysterymayhem/gravitymod/asm/Hooks",
+                                HOOKS,
                                 fieldMap.get(fin.name),
                                 "(Lnet/minecraft/entity/Entity;)F",
                                 false
@@ -68,7 +66,7 @@ public class SoundManagerTransformer implements IExplicitTransformer {
                             node,
                             new MethodInsnNode(
                                 Opcodes.INVOKESTATIC,
-                                "uk/co/mysterymayhem/gravitymod/asm/Hooks",
+                                HOOKS,
                                 "setListenerOrientationHook",
                                 "(Lpaulscode/sound/SoundSystem;FFFFFFLnet/minecraft/entity/Entity;)V",
                                 false

@@ -64,7 +64,7 @@ public class Transformer implements IClassTransformer {
         // Patches getMouseOver, drawNameplate
         //addClassPatch(new PatchEntityRenderer());
         // Patches doRender
-        addClassPatch(new PatchRenderLivingBase());
+        //addClassPatch(new PatchRenderLivingBase());
         // Patches moveEntity, moveRelative
         addClassPatch(new PatchEntity());
         // Patches moveEntityWithHeading, updateDistance, onUpdate, jump
