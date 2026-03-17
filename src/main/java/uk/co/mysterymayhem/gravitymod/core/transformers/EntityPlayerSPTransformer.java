@@ -33,7 +33,6 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
         final String onLivingUpdate = ObfableName.get("onLivingUpdate", "func_70636_d");
         final String updateAutoJump = ObfableName.get("updateAutoJump", "func_189810_i");
 
-        out:
         for (var method : classNode.methods) {
             InsnList list = method.instructions;
             if (method.name.equals(onUpdateWalkingPlayer)) {
@@ -143,7 +142,7 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                 tempList.add(new JumpInsnNode(Opcodes.GOTO, getFoodStatsBlock));
 
                 list.insert(store, tempList);
-            } else if (method.name.equals("isHeadspaceFree"))  {
+            } else if (method.name.equals("isHeadspaceFree")) {
                 /*
                      private boolean isHeadspaceFree(BlockPos pos, int height) {
                        +pos = Hooks.makeRelativeBlockPos(pos, this);
@@ -551,8 +550,8 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                 node = commonGetRelativeUpPatch(node, list);
                 commonGetRelativeBottomOfBBPatch(node, list);
                 break;
-                }
             }
+        }
         
         ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
         classNode.accept(classWriter);

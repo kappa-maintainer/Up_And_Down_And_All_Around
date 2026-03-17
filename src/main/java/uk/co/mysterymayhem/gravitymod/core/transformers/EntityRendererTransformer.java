@@ -8,6 +8,7 @@ import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 import top.outlands.foundation.IExplicitTransformer;
+import uk.co.mysterymayhem.gravitymod.core.ObfableName;
 
 public class EntityRendererTransformer implements IExplicitTransformer {
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
@@ -16,14 +17,17 @@ public class EntityRendererTransformer implements IExplicitTransformer {
         ClassNode classNode = new ClassNode();
         ClassReader classReader = new ClassReader(bytes);
         classReader.accept(classNode, 0);
+        String getMouseOver = ObfableName.get("getMouseOver", "func_78473_a");
+        String drawNameplate = ObfableName.get("drawNameplate", "func_189692_a");
         out:
         for (var method : classNode.methods) {
-            if (method.name.equals("getMouseOver") || method.name.equals("func_78473_a")) {
+            if (method.name.equals(getMouseOver)) {
                 InsnList list = method.instructions;
+                String getEntityBoundingBox = ObfableName.get("getEntityBoundingBox", "func_174813_aQ");
                 for (var node : list) {
                     if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
-                        && (min.name.equals("getEntityBoundingBox") || min.name.equals("func_174813_aQ"))
+                        && min.name.equals(getEntityBoundingBox)
                     ) {
                         min.setOpcode(Opcodes.INVOKESTATIC);
                         min.name = "getVanillaEntityBoundingBox";
@@ -33,15 +37,16 @@ public class EntityRendererTransformer implements IExplicitTransformer {
                         break;
                     }
                 }
-            }
-            if (method.name.equals("drawNameplate") || method.name.equals("func_189692_a")) {
-                for (var node : method.instructions) {
+            } else if (method.name.equals(drawNameplate)) {
+                InsnList list = method.instructions;
+                String disableLighting = ObfableName.get("disableLighting", "func_179140_f");
+                for (var node : list) {
                     if (node.getOpcode() == Opcodes.INVOKESTATIC
                         && node instanceof MethodInsnNode min
-                        && (min.name.equals("disableLighting") || min.name.equals("func_179140_f"))
+                        && min.name.equals(disableLighting)
                     ) {
-                        method.instructions.insertBefore(node, new VarInsnNode(Opcodes.ILOAD, 8));
-                        method.instructions.insertBefore(
+                        list.insertBefore(node, new VarInsnNode(Opcodes.ILOAD, 8));
+                        list.insertBefore(
                             node,
                             new MethodInsnNode(
                                 Opcodes.INVOKESTATIC,
@@ -56,7 +61,7 @@ public class EntityRendererTransformer implements IExplicitTransformer {
                 }
             }
         }
-        ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
+        ClassWriter classWriter = new ClassWriter(0);
         classNode.accept(classWriter);
         return classWriter.toByteArray();
     }

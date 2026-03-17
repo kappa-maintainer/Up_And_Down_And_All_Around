@@ -7,6 +7,7 @@ import top.outlands.foundation.TransformerDelegate;
 import uk.co.mysterymayhem.gravitymod.asm.Transformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.EntityPlayerSPTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.EntityRendererTransformer;
+import uk.co.mysterymayhem.gravitymod.core.transformers.EntityTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.NetHandlerPlayClientTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.RenderLivingBaseTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.SoundManagerTransformer;
@@ -49,6 +50,10 @@ public class FMLLoadingPlugin implements IFMLLoadingPlugin {
         TransformerDelegate.registerExplicitTransformer(
             new RenderLivingBaseTransformer(),
             "net.minecraft.client.renderer.entity.RenderLivingBase"
+        );
+        TransformerDelegate.registerExplicitTransformer(
+            new EntityTransformer(),
+            "net.minecraft.entity.Entity"
         );
         return new String[]{Transformer.class.getName()};
         //return null;

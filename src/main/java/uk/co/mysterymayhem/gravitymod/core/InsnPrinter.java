@@ -13,6 +13,7 @@ public class InsnPrinter {
     private static final TraceMethodVisitor methodPrinter = new TraceMethodVisitor(printer);
 
     public static String prettyPrint(AbstractInsnNode insnNode) {
+        if (insnNode == null) return "null";
         insnNode.accept(methodPrinter);
         StringWriter sw = new StringWriter();
         printer.print(new PrintWriter(sw));

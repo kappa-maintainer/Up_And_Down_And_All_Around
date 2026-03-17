@@ -3,6 +3,7 @@ package uk.co.mysterymayhem.gravitymod.asm;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.message.FormattedMessageFactory;
 import org.apache.logging.log4j.message.StringFormatterMessageFactory;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.commons.LocalVariablesSorter;
@@ -37,7 +38,7 @@ public class Transformer implements IClassTransformer {
 
     // Maps classes to their patch methods
     private static final HashMap<String, ClassPatcher> classNameToMethodMap = new HashMap<>();
-    public static final Logger logger = LogManager.getLogger("UpAndDown-Core");
+    public static final Logger logger = LogManager.getLogger("UpAndDown-Core", StringFormatterMessageFactory.INSTANCE);
 
     public static final boolean DEBUG_AUTO_JUMP = false;
     //Set up bit mask
@@ -66,7 +67,7 @@ public class Transformer implements IClassTransformer {
         // Patches doRender
         //addClassPatch(new PatchRenderLivingBase());
         // Patches moveEntity, moveRelative
-        addClassPatch(new PatchEntity());
+        //addClassPatch(new PatchEntity());
         // Patches moveEntityWithHeading, updateDistance, onUpdate, jump
         addClassPatch(new PatchEntityLivingBase());
         // Patches onItemUse, useItemRightClick, onPlayerStoppedUsing
