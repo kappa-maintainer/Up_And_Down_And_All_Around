@@ -9,7 +9,7 @@ import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 import top.outlands.foundation.IExplicitTransformer;
-import uk.co.mysterymayhem.gravitymod.core.ObfableName;
+import uk.co.mysterymayhem.gravitymod.core.ObfName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,10 +19,10 @@ public class SoundManagerTransformer implements IExplicitTransformer {
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
     private static final Map<String, String> fieldMap = new HashMap<>(){
         {
-            put(ObfableName.get("prevRotationPitch", "field_70127_C"), "getRelativePrevPitch");
-            put(ObfableName.get("prevRotationYaw", "field_70126_B"), "getRelativePrevYaw");
-            put(ObfableName.get("rotationPitch", "field_70125_A"), "getRelativePitch");
-            put(ObfableName.get("rotationYaw", "field_70177_z"), "getRelativeYaw");
+            put(ObfName.get("prevRotationPitch", "field_70127_C"), "getRelativePrevPitch");
+            put(ObfName.get("prevRotationYaw", "field_70126_B"), "getRelativePrevYaw");
+            put(ObfName.get("rotationPitch", "field_70125_A"), "getRelativePitch");
+            put(ObfName.get("rotationYaw", "field_70177_z"), "getRelativeYaw");
         }
     };
     

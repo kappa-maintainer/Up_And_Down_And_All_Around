@@ -8,7 +8,7 @@ import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 import top.outlands.foundation.IExplicitTransformer;
-import uk.co.mysterymayhem.gravitymod.core.ObfableName;
+import uk.co.mysterymayhem.gravitymod.core.ObfName;
 
 public class EntityRendererTransformer implements IExplicitTransformer {
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
@@ -17,13 +17,13 @@ public class EntityRendererTransformer implements IExplicitTransformer {
         ClassNode classNode = new ClassNode();
         ClassReader classReader = new ClassReader(bytes);
         classReader.accept(classNode, 0);
-        String getMouseOver = ObfableName.get("getMouseOver", "func_78473_a");
-        String drawNameplate = ObfableName.get("drawNameplate", "func_189692_a");
+        String getMouseOver = ObfName.get("getMouseOver", "func_78473_a");
+        String drawNameplate = ObfName.get("drawNameplate", "func_189692_a");
         out:
         for (var method : classNode.methods) {
             if (method.name.equals(getMouseOver)) {
                 InsnList list = method.instructions;
-                String getEntityBoundingBox = ObfableName.get("getEntityBoundingBox", "func_174813_aQ");
+                String getEntityBoundingBox = ObfName.get("getEntityBoundingBox", "func_174813_aQ");
                 for (var node : list) {
                     if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
@@ -39,7 +39,7 @@ public class EntityRendererTransformer implements IExplicitTransformer {
                 }
             } else if (method.name.equals(drawNameplate)) {
                 InsnList list = method.instructions;
-                String disableLighting = ObfableName.get("disableLighting", "func_179140_f");
+                String disableLighting = ObfName.get("disableLighting", "func_179140_f");
                 for (var node : list) {
                     if (node.getOpcode() == Opcodes.INVOKESTATIC
                         && node instanceof MethodInsnNode min

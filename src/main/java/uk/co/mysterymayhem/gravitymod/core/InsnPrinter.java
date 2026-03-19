@@ -1,5 +1,6 @@
 package uk.co.mysterymayhem.gravitymod.core;
 
+import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.util.Printer;
 import org.objectweb.asm.util.Textifier;
 import org.objectweb.asm.util.TraceMethodVisitor;
@@ -19,5 +20,9 @@ public class InsnPrinter {
         printer.print(new PrintWriter(sw));
         printer.getText().clear();
         return sw.toString().trim();
+    }
+    
+    public static void printMethod(MethodNode methodNode) {
+        methodNode.instructions.forEach(n -> FMLLoadingPlugin.logger.info(prettyPrint(n)));
     }
 }

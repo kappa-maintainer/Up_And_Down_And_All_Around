@@ -9,7 +9,7 @@ import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodInsnNode;
 import top.outlands.foundation.IExplicitTransformer;
-import uk.co.mysterymayhem.gravitymod.core.ObfableName;
+import uk.co.mysterymayhem.gravitymod.core.ObfName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,10 +19,10 @@ public class RenderLivingBaseTransformer implements IExplicitTransformer {
 
     private static final Map<String, Pair<String, String>> fieldMap = new HashMap<>(){
         {
-            put(ObfableName.get("prevRotationYawHead", "field_70758_at"), Pair.of("getPrevRelativeYawHead", "(Lnet/minecraft/entity/EntityLivingBase;)F"));
-            put(ObfableName.get("rotationYawHead", "field_70759_as"), Pair.of("getRelativeYawHead", "(Lnet/minecraft/entity/EntityLivingBase;)F"));
-            put(ObfableName.get("prevRotationPitch", "field_70127_C"), Pair.of("getRelativePrevPitch", "(Lnet/minecraft/entity/Entity;)F"));
-            put(ObfableName.get("rotationPitch", "field_70125_A"), Pair.of("getRelativePitch", "(Lnet/minecraft/entity/Entity;)F"));
+            put(ObfName.get("prevRotationYawHead", "field_70758_at"), Pair.of("getPrevRelativeYawHead", "(Lnet/minecraft/entity/EntityLivingBase;)F"));
+            put(ObfName.get("rotationYawHead", "field_70759_as"), Pair.of("getRelativeYawHead", "(Lnet/minecraft/entity/EntityLivingBase;)F"));
+            put(ObfName.get("prevRotationPitch", "field_70127_C"), Pair.of("getRelativePrevPitch", "(Lnet/minecraft/entity/Entity;)F"));
+            put(ObfName.get("rotationPitch", "field_70125_A"), Pair.of("getRelativePitch", "(Lnet/minecraft/entity/Entity;)F"));
         }
     };
     
@@ -31,7 +31,7 @@ public class RenderLivingBaseTransformer implements IExplicitTransformer {
         ClassNode classNode = new ClassNode();
         ClassReader classReader = new ClassReader(bytes);
         classReader.accept(classNode, 0);
-        String doRender = ObfableName.get("doRender", "func_76986_a");
+        String doRender = ObfName.get("doRender", "func_76986_a");
         for (var method : classNode.methods) {
             if (method.name.equals(doRender)) {
                 InsnList list = method.instructions;

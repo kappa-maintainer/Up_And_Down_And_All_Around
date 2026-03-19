@@ -14,10 +14,7 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 import top.outlands.foundation.IExplicitTransformer;
-import uk.co.mysterymayhem.gravitymod.core.ObfableName;
-
-import java.util.HashMap;
-import java.util.Map;
+import uk.co.mysterymayhem.gravitymod.core.ObfName;
 
 public class EntityPlayerSPTransformer implements IExplicitTransformer {
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
@@ -28,17 +25,17 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
         ClassReader classReader = new ClassReader(bytes);
         classReader.accept(classNode, 0);
         
-        final String onUpdateWalkingPlayer = ObfableName.get("onUpdateWalkingPlayer", "func_175161_p");
-        final String pushOutOfBlocks = ObfableName.get("pushOutOfBlocks", "func_145771_j");
-        final String onLivingUpdate = ObfableName.get("onLivingUpdate", "func_70636_d");
-        final String updateAutoJump = ObfableName.get("updateAutoJump", "func_189810_i");
+        final String onUpdateWalkingPlayer = ObfName.get("onUpdateWalkingPlayer", "func_175161_p");
+        final String pushOutOfBlocks = ObfName.get("pushOutOfBlocks", "func_145771_j");
+        final String onLivingUpdate = ObfName.get("onLivingUpdate", "func_70636_d");
+        final String updateAutoJump = ObfName.get("updateAutoJump", "func_189810_i");
 
         for (var method : classNode.methods) {
             InsnList list = method.instructions;
             if (method.name.equals(onUpdateWalkingPlayer)) {
                 // Replace all axisalignedbb.minY to this.posY
-                String minY = ObfableName.get("minY", "field_72338_b");
-                String posY = ObfableName.get("posY", "field_70163_u");
+                String minY = ObfName.get("minY", "field_72338_b");
+                String posY = ObfName.get("posY", "field_70163_u");
                 for (var node : list) {
                     if (node.getOpcode() == Opcodes.GETFIELD
                         && node instanceof FieldInsnNode fin

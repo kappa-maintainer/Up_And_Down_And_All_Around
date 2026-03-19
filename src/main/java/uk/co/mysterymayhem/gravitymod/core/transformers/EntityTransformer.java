@@ -10,7 +10,7 @@ import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 import top.outlands.foundation.IExplicitTransformer;
-import uk.co.mysterymayhem.gravitymod.core.ObfableName;
+import uk.co.mysterymayhem.gravitymod.core.ObfName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,9 +19,9 @@ public class EntityTransformer implements IExplicitTransformer {
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
     private static final Map<String, String> offsetMap = new HashMap<>(){
         {
-            put(ObfableName.get("calculateYOffset", "func_72323_b"), "reverseYOffset");
-            put(ObfableName.get("calculateXOffset", "func_72316_a"), "reverseXOffset");
-            put(ObfableName.get("calculateZOffset", "func_72322_c"), "reverseZOffset");
+            put(ObfName.get("calculateYOffset", "func_72323_b"), "reverseYOffset");
+            put(ObfName.get("calculateXOffset", "func_72316_a"), "reverseXOffset");
+            put(ObfName.get("calculateZOffset", "func_72322_c"), "reverseZOffset");
         }
     };
     
@@ -31,13 +31,13 @@ public class EntityTransformer implements IExplicitTransformer {
         ClassReader classReader = new ClassReader(bytes);
         classReader.accept(classNode, 0);
         
-        String moveRelative = ObfableName.get("moveRelative", "func_191958_b");
-        String move = ObfableName.get("move", "func_70091_d");
+        String moveRelative = ObfName.get("moveRelative", "func_191958_b");
+        String move = ObfName.get("move", "func_70091_d");
         
         out:
         for (var method: classNode.methods) {
             InsnList list = method.instructions;
-            String rotationYaw = ObfableName.get("rotationYaw", "field_70177_z");
+            String rotationYaw = ObfName.get("rotationYaw", "field_70177_z");
             if (method.name.equals(moveRelative)) {
                 for (var node : list) {
                     if (node.getOpcode() == Opcodes.GETFIELD
@@ -105,7 +105,7 @@ public class EntityTransformer implements IExplicitTransformer {
                         node = node.getNext();
                     }
                 }
-                String down = ObfableName.get("down", "func_177977_b");
+                String down = ObfName.get("down", "func_177977_b");
                 while (node != null) {
                     if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
@@ -127,7 +127,7 @@ public class EntityTransformer implements IExplicitTransformer {
                         node = node.getNext();
                     }
                 }
-                String isRiding = ObfableName.get("isRiding", "func_184218_aH");
+                String isRiding = ObfName.get("isRiding", "func_184218_aH");
                 while (node != null) {
                     if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min

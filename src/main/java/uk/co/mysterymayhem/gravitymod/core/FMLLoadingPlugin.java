@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import top.outlands.foundation.TransformerDelegate;
 import uk.co.mysterymayhem.gravitymod.asm.Transformer;
+import uk.co.mysterymayhem.gravitymod.core.transformers.EntityLivingBaseTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.EntityPlayerSPTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.EntityRendererTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.EntityTransformer;
@@ -54,6 +55,10 @@ public class FMLLoadingPlugin implements IFMLLoadingPlugin {
         TransformerDelegate.registerExplicitTransformer(
             new EntityTransformer(),
             "net.minecraft.entity.Entity"
+        );
+        TransformerDelegate.registerExplicitTransformer(
+            new EntityLivingBaseTransformer(),
+            "net.minecraft.entity.EntityLivingBase"
         );
         return new String[]{Transformer.class.getName()};
         //return null;
