@@ -1,7 +1,6 @@
 package uk.co.mysterymayhem.gravitymod.common.listeners;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -103,20 +102,20 @@ public class ItemStackUseListener {
             Objects.requireNonNull(itemUseMethod, String.format("[UpAndDownAndAllAround] Failed to register PrePostModifier for %s. ListenersSet cannot be null", prePostModifier));
             TreeMap<Item, TIntObjectHashMap<IPrePostModifier<EntityPlayerWithGravity>>> map;
             String mapName;
-            switch (itemUseMethod) {
-                case BLOCK:
+            map = switch (itemUseMethod) {
+                case BLOCK -> {
                     mapName = "onItemUse(BLOCK)";
-                    map = onItemUse_itemToPrePostModifier;
-                    break;
-                case GENERAL:
+                    yield onItemUse_itemToPrePostModifier;
+                }
+                case GENERAL -> {
                     mapName = "onItemRightClick(GENERAL)";
-                    map = onItemRightClick_itemToPrePostModifier;
-                    break;
-                default://case STOPPED_USING:
+                    yield onItemRightClick_itemToPrePostModifier;
+                }
+                default -> {
                     mapName = "onPlayerStoppedUsing(STOPPED_USING)";
-                    map = onPlayerStoppedUsing_itemToPrePostModifier;
-                    break;
-            }
+                    yield onPlayerStoppedUsing_itemToPrePostModifier;
+                }
+            };
             for (int damageValue : damageValues) {
                 TIntObjectHashMap<IPrePostModifier<EntityPlayerWithGravity>> damageToPrePostMap = map.get(item);
                 if (damageToPrePostMap == null) {
@@ -165,14 +164,12 @@ public class ItemStackUseListener {
             else {
                 int[] keysArray = prePostMap.keySet().toArray();
                 Arrays.sort(keysArray);
-                for (int nextKeyIndex = 0; nextKeyIndex < keysArray.length; nextKeyIndex++) {
-                    int nextKey = keysArray[nextKeyIndex];
+                for (int nextKey : keysArray) {
                     hash = 31 * hash + nextKey;
                     IPrePostModifier<EntityPlayerWithGravity> prePostModifier = prePostMap.get(nextKey);
                     if (prePostModifier == null) {
                         hash = 31 * hash;
-                    }
-                    else {
+                    } else {
                         hash = 31 * hash + prePostModifier.getUniqueID();
                     }
                 }
@@ -209,9 +206,7 @@ public class ItemStackUseListener {
 
     @SubscribeEvent
     public static void onItemUseGeneral(ItemStackUseEvent.OnUseGeneral event) {
-        EntityLivingBase entity;
-        if ((entity = event.getEntityLiving()) instanceof EntityPlayerWithGravity) {
-            EntityPlayerWithGravity player = (EntityPlayerWithGravity)entity;
+        if (event.getEntityLiving() instanceof EntityPlayerWithGravity player) {
             IPrePostModifier<EntityPlayerWithGravity> prePostModifier = getPrePostModifier(onItemRightClick_itemToPrePostModifier, event);
             if (prePostModifier != null) {
                 prePostModifier.modify(event.phase, player);
@@ -236,9 +231,7 @@ public class ItemStackUseListener {
 
     @SubscribeEvent
     public static void onItemUseOnBlock(ItemStackUseEvent.OnUseOnBlock event) {
-        EntityLivingBase entity;
-        if ((entity = event.getEntityLiving()) instanceof EntityPlayerWithGravity) {
-            EntityPlayerWithGravity player = (EntityPlayerWithGravity)entity;
+        if (event.getEntityLiving() instanceof EntityPlayerWithGravity player) {
             IPrePostModifier<EntityPlayerWithGravity> prePostModifier = getPrePostModifier(onItemUse_itemToPrePostModifier, event);
             if (prePostModifier != null) {
                 prePostModifier.modify(event.phase, player);
@@ -248,9 +241,7 @@ public class ItemStackUseListener {
 
     @SubscribeEvent
     public static void onPlayerStoppedUsingItem(ItemStackUseEvent.OnStoppedUsing event) {
-        EntityLivingBase entity;
-        if ((entity = event.getEntityLiving()) instanceof EntityPlayerWithGravity) {
-            EntityPlayerWithGravity player = (EntityPlayerWithGravity)entity;
+        if (event.getEntityLiving() instanceof EntityPlayerWithGravity player) {
             IPrePostModifier<EntityPlayerWithGravity> prePostModifier = getPrePostModifier(onPlayerStoppedUsing_itemToPrePostModifier, event);
             if (prePostModifier != null) {
                 prePostModifier.modify(event.phase, player);

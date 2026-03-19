@@ -482,14 +482,9 @@ public class Hooks {
 
         ItemStack toReturn = stack.copy();
 
-        if (world.isRemote) {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseOnBlock.Pre(stack, player, true));
-            return new ItemStackAndBoolean(toReturn, true);
-        }
-        else {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseOnBlock.Pre(stack, player, false));
-            return new ItemStackAndBoolean(toReturn, false);
-        }
+        boolean isClient = world.isRemote;
+        MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseOnBlock.Pre(stack, player, isClient));
+        return new ItemStackAndBoolean(toReturn, isClient);
     }
 
     public static void onItemUsePost(ItemStackAndBoolean preCopyAndIsRemote, ItemStack stack, EntityPlayer player) {
@@ -497,12 +492,7 @@ public class Hooks {
             return;
         }
 
-        if (preCopyAndIsRemote.isRemote) {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseOnBlock.Post(stack, player, true));
-        }
-        else {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseOnBlock.Post(stack, player, false));
-        }
+        MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseOnBlock.Post(stack, player, preCopyAndIsRemote.isRemote()));
     }
 
     public static ItemStackAndBoolean onItemRightClickPre(ItemStack stack, EntityPlayer player) {
@@ -513,14 +503,9 @@ public class Hooks {
 
         ItemStack toReturn = stack.copy();
 
-        if (world.isRemote) {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseGeneral.Pre(stack, player, true));
-            return new ItemStackAndBoolean(toReturn, true);
-        }
-        else {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseGeneral.Pre(stack, player, false));
-            return new ItemStackAndBoolean(toReturn, false);
-        }
+        boolean isClient = world.isRemote;
+        MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseGeneral.Pre(stack, player, isClient));
+        return new ItemStackAndBoolean(toReturn, isClient);
     }
 
     public static void onItemRightClickPost(ItemStackAndBoolean preCopyAndIsRemote, ItemStack stack, EntityPlayer player) {
@@ -528,12 +513,7 @@ public class Hooks {
             return;
         }
 
-        if (preCopyAndIsRemote.isRemote) {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseGeneral.Post(stack, player, true));
-        }
-        else {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseGeneral.Post(stack, player, false));
-        }
+        MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnUseGeneral.Post(stack, player, preCopyAndIsRemote.isRemote()));
     }
 
     public static ItemStackAndBoolean onPlayerStoppedUsingPre(ItemStack stack, EntityLivingBase entity) {
@@ -544,14 +524,9 @@ public class Hooks {
 
         ItemStack toReturn = stack.copy();
 
-        if (world.isRemote) {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnStoppedUsing.Pre(stack, entity, true));
-            return new ItemStackAndBoolean(toReturn, true);
-        }
-        else {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnStoppedUsing.Pre(stack, entity, false));
-            return new ItemStackAndBoolean(toReturn, false);
-        }
+        boolean isClient = world.isRemote;
+        MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnStoppedUsing.Pre(stack, entity, isClient));
+        return new ItemStackAndBoolean(toReturn, isClient);
     }
 
     public static void onPlayerStoppedUsingPost(ItemStackAndBoolean preCopyAndIsRemote, ItemStack stack, EntityLivingBase entity) {
@@ -559,12 +534,7 @@ public class Hooks {
             return;
         }
 
-        if (preCopyAndIsRemote.isRemote) {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnStoppedUsing.Post(stack, entity, true));
-        }
-        else {
-            MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnStoppedUsing.Post(stack, entity, false));
-        }
+        MinecraftForge.EVENT_BUS.post(new ItemStackUseEvent.OnStoppedUsing.Post(stack, entity, preCopyAndIsRemote.isRemote()));
     }
 
     //TODO: DELETE
@@ -828,8 +798,7 @@ public class Hooks {
 
     public static void setRelativeMotionX(Entity entity, double value) {
         AxisAlignedBB entityBoundingBox = entity.getEntityBoundingBox();
-        if (entityBoundingBox instanceof GravityAxisAlignedBB) {
-            GravityAxisAlignedBB gBB = (GravityAxisAlignedBB)entityBoundingBox;
+        if (entityBoundingBox instanceof GravityAxisAlignedBB gBB) {
             EnumGravityDirection direction = gBB.getDirection();
 
             double[] doubles = direction.getInverseAdjustmentFromDOWNDirection().adjustXYZValues(entity.motionX, entity.motionY, entity.motionZ);
@@ -848,8 +817,7 @@ public class Hooks {
 
     public static void setRelativeMotionY(Entity entity, double value) {
         AxisAlignedBB entityBoundingBox = entity.getEntityBoundingBox();
-        if (entityBoundingBox instanceof GravityAxisAlignedBB) {
-            GravityAxisAlignedBB gBB = (GravityAxisAlignedBB)entityBoundingBox;
+        if (entityBoundingBox instanceof GravityAxisAlignedBB gBB) {
             EnumGravityDirection direction = gBB.getDirection();
 
             double[] doubles = direction.getInverseAdjustmentFromDOWNDirection().adjustXYZValues(entity.motionX, entity.motionY, entity.motionZ);
