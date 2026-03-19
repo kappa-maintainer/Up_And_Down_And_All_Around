@@ -72,7 +72,7 @@ public class Transformer implements IClassTransformer {
         //addClassPatch(new PatchEntityLivingBase());
         // Patches onItemUse, useItemRightClick, onPlayerStoppedUsing
         //      (all three are used to add compatibility with other mods, they are not otherwise used by this mod)
-        addClassPatch(new PatchItemStack());
+        //addClassPatch(new PatchItemStack());
         // Patches processPlayer, processPlayerDigging
         addClassPatch(new PatchNetHandlerPlayServer());
         // Patches onUpdate

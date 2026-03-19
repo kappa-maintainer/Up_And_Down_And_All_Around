@@ -9,6 +9,7 @@ import uk.co.mysterymayhem.gravitymod.core.transformers.EntityLivingBaseTransfor
 import uk.co.mysterymayhem.gravitymod.core.transformers.EntityPlayerSPTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.EntityRendererTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.EntityTransformer;
+import uk.co.mysterymayhem.gravitymod.core.transformers.ItemStackTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.NetHandlerPlayClientTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.RenderLivingBaseTransformer;
 import uk.co.mysterymayhem.gravitymod.core.transformers.SoundManagerTransformer;
@@ -59,6 +60,9 @@ public class FMLLoadingPlugin implements IFMLLoadingPlugin {
         TransformerDelegate.registerExplicitTransformer(
             new EntityLivingBaseTransformer(),
             "net.minecraft.entity.EntityLivingBase"
+        );
+        TransformerDelegate.registerExplicitTransformer(
+            new ItemStackTransformer(), "net.minecraft.item.ItemStack"
         );
         return new String[]{Transformer.class.getName()};
         //return null;

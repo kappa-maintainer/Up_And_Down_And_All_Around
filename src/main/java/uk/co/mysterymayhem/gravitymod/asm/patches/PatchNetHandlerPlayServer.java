@@ -54,11 +54,8 @@ public class PatchNetHandlerPlayServer extends ClassPatcher {
         this.addMethodPatch(
                 Ref.INetHandlerPlayServer$processPlayerDigging_name::is,
                 ((next, iterator) -> {
-                    if (next instanceof LdcInsnNode) {
-                        LdcInsnNode ldcInsnNode = (LdcInsnNode)next;
-                        Object object = ldcInsnNode.cst;
-                        if (object instanceof Double) {
-                            Double d = (Double)object;
+                    if (next instanceof LdcInsnNode ldcInsnNode) {
+                        if (ldcInsnNode.cst instanceof Double d) {
                             if (d == 1.5D) {
                                 iterator.remove();
                                 iterator.add(new VarInsnNode(Opcodes.ALOAD, 0)); //this.
@@ -356,8 +353,7 @@ public class PatchNetHandlerPlayServer extends ClassPatcher {
                 AbstractInsnNode previous = iterator.previous();
                 countToUndo++;
 
-                if (previous.getOpcode() == Opcodes.DLOAD && previous instanceof VarInsnNode) {
-                    VarInsnNode varInsnNode = (VarInsnNode)previous;
+                if (previous.getOpcode() == Opcodes.DLOAD && previous instanceof VarInsnNode varInsnNode) {
                     PatchNetHandlerPlayServer.this.storeData(previousPacketGetZLocalVarKey, varInsnNode.var);
                     for (int i = 0; i < countToUndo; i++) {
                         iterator.next();
@@ -373,8 +369,7 @@ public class PatchNetHandlerPlayServer extends ClassPatcher {
             if (Ref.NetHandlerPlayServer$lastGoodX_GET.is(node)) {
                 for (int foundCount = 0; foundCount < 3; ) {
                     AbstractInsnNode next = iterator.next();
-                    if (next instanceof VarInsnNode && next.getOpcode() == Opcodes.DSTORE) {
-                        VarInsnNode varInsnNode = (VarInsnNode)next;
+                    if (next instanceof VarInsnNode varInsnNode && next.getOpcode() == Opcodes.DSTORE) {
                         switch (foundCount) {
                             case 0:
                                 PatchNetHandlerPlayServer.this.storeData(xDiffLocalVarKey, varInsnNode.var);
