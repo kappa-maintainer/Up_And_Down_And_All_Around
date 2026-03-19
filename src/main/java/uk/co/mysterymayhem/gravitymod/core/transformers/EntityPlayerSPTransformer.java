@@ -92,6 +92,7 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                 LabelNode postEventBlock = null;
                 LabelNode getFoodStatsBlock = null;
                 LabelNode temp = null;
+                String getFoodStats = ObfName.get("getFoodStats", "func_71024_bL");
                 for (var node : list) {
                     if (node instanceof LabelNode labelNode) {
                         temp = labelNode;
@@ -107,7 +108,7 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                     }
                     if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
-                        && (min.name.equals("getFoodStats") || min.name.equals("func_71024_bL"))
+                        && min.name.equals(getFoodStats)
                     ) {
                         getFoodStatsBlock = temp;
                         break;
@@ -190,10 +191,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                         node = node.getNext();
                     }
                 }
+                String posX = ObfName.get("posX", "field_70165_t");
                 while (node != null) {
                     if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
-                        && (fin.name.equals("posX") || fin.name.equals("field_70165_t"))
+                        && fin.name.equals(posX)
                     ) {
                         list.insertBefore(
                             node,
@@ -212,10 +214,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                         node = node.getNext();
                     }
                 }
+                String getEntityBoundingBox = ObfName.get("getEntityBoundingBox", "func_174813_aQ");
                 while (node != null) {
                     if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
-                        && (min.name.equals("getEntityBoundingBox") || min.name.equals("func_174813_aQ"))
+                        && min.name.equals(getEntityBoundingBox)
                     ) {
                         list.remove(node.getNext());
                         list.insertBefore(
@@ -235,10 +238,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                         node = node.getNext();
                     }
                 }
+                String posZ = ObfName.get("posZ", "field_70161_v");
                 while (node != null) {
                     if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
-                        && (fin.name.equals("posZ") || fin.name.equals("field_70161_v"))
+                        && fin.name.equals(posZ)
                     ) {
                         list.insertBefore(
                             node,
@@ -276,10 +280,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                     }
                 }
                 int count = 0;
+                String rotationYaw = ObfName.get("rotationYaw", "field_70177_z");
                 while (node != null) {
                     if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
-                        && (fin.name.equals("rotationYaw") || fin.name.equals("field_70177_z"))
+                        && fin.name.equals(rotationYaw)
                     ) {
                         list.insert(
                             node,
@@ -300,10 +305,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                         node = node.getNext();
                     }
                 }
+                String getForward = ObfName.get("getForward", "func_189651_aD");
                 while (node != null) {
                     if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
-                        && (min.name.equals("getForward") || min.name.equals("func_189651_aD"))
+                        && min.name.equals(getForward)
                     ) {
                         list.insert(
                             node,
@@ -399,10 +405,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                     }
                 }
                 count = 0;
+                String add = ObfName.get("add", "func_178787_e");
                 while (node != null) {
                     if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
-                        && (min.name.equals("add") || min.name.equals("func_178787_e"))
+                        && min.name.equals(add)
                     ) {
                         list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
@@ -451,10 +458,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                         node = node.getNext();
                     }
                 }
+                String maxY = ObfName.get("maxY", "field_72337_e");
                 while (node != null) {
                     if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
-                        && (fin.name.equals("maxY") || fin.name.equals("field_72337_e"))
+                        && fin.name.equals(maxY)
                     ) {
                         list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
@@ -474,10 +482,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                         node = node.getNext();
                     }
                 }
+                String up = ObfName.get("up", "func_177984_a");
                 while (node != null) {
                     if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
-                        && (min.name.equals("up") || min.name.equals("func_177984_a"))
+                        && min.name.equals(up)
                     ) {
                         list.insert(
                             node,
@@ -500,7 +509,7 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                 while (node != null) {
                     if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
-                        && (fin.name.equals("maxY") || fin.name.equals("field_72337_e"))
+                        && fin.name.equals(maxY)
                     ) {
                         list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
@@ -520,10 +529,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                         node = node.getNext();
                     }
                 }
+                String getY = ObfName.get("getY", "func_177956_o");
                 while (node != null) {
                     if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
-                        && (min.name.equals("getY") || min.name.equals("func_177956_o"))
+                        && min.name.equals(getY)
                     ) {
                         list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
@@ -556,10 +566,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
     }
     
     private AbstractInsnNode commonGetRelativeUpPatch(AbstractInsnNode node, InsnList list) {
+        String up = ObfName.get("up", "func_177984_a");
         while (node != null) {
             if (node.getOpcode() == INVOKEVIRTUAL
                 && node instanceof MethodInsnNode min
-                && (min.name.equals("up") || min.name.equals("func_177984_a"))
+                && min.name.equals(up)
             ) {
                 list.insert(
                     node,
@@ -583,10 +594,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
     }
     
     private AbstractInsnNode commonGetRelativeBottomOfBBPatch(AbstractInsnNode node, InsnList list) {
+        String minY = ObfName.get("minY", "field_72338_b");
         while (node != null) {
             if (node.getOpcode() == GETFIELD
                 && node instanceof FieldInsnNode fin
-                && (fin.name.equals("minY") || fin.name.equals("field_72338_b"))
+                && fin.name.equals(minY)
             ) {
                 list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                 list.insertBefore(
