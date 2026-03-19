@@ -14,7 +14,7 @@ import uk.co.mysterymayhem.gravitymod.core.ObfName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SoundManagerTransformer implements IExplicitTransformer {
+public class SoundManagerTransformer implements IExplicitTransformer, Opcodes {
     
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
     private static final Map<String, String> fieldMap = new HashMap<>(){
@@ -40,14 +40,14 @@ public class SoundManagerTransformer implements IExplicitTransformer {
                 InsnList list = method.instructions;
                 for (var node : list) {
                     if (counter > 0
-                        && node.getOpcode() == Opcodes.GETFIELD
+                        && node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
                         && fieldMap.containsKey(fin.name)
                     ) {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 fieldMap.get(fin.name),
                                 "(Lnet/minecraft/entity/Entity;)F",
@@ -58,21 +58,21 @@ public class SoundManagerTransformer implements IExplicitTransformer {
                         counter--;
                     }
                     if (counter == 0
-                        && node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                        && node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && min.desc.equals("(FFFFFF)V")
                     ) {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "setListenerOrientationHook",
                                 "(Lpaulscode/sound/SoundSystem;FFFFFFLnet/minecraft/entity/Entity;)V",
                                 false
                             )
                         );
-                        list.insert(node, new VarInsnNode(Opcodes.ALOAD, 1));
+                        list.insert(node, new VarInsnNode(ALOAD, 1));
                         list.remove(node);
                         break out;
                     }

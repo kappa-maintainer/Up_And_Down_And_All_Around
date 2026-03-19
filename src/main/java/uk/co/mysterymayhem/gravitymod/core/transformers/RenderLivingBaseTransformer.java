@@ -14,7 +14,7 @@ import uk.co.mysterymayhem.gravitymod.core.ObfName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RenderLivingBaseTransformer implements IExplicitTransformer {
+public class RenderLivingBaseTransformer implements IExplicitTransformer, Opcodes {
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
 
     private static final Map<String, Pair<String, String>> fieldMap = new HashMap<>(){
@@ -36,14 +36,14 @@ public class RenderLivingBaseTransformer implements IExplicitTransformer {
             if (method.name.equals(doRender)) {
                 InsnList list = method.instructions;
                 for (var node : list) {
-                    if (node.getOpcode() == Opcodes.GETFIELD
+                    if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
                         && fieldMap.containsKey(fin.name)
                     ) {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 fieldMap.get(fin.name).getLeft(),
                                 fieldMap.get(fin.name).getRight()

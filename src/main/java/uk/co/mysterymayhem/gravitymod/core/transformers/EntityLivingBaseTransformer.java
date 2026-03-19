@@ -25,7 +25,7 @@ import uk.co.mysterymayhem.gravitymod.core.ObfName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EntityLivingBaseTransformer implements IExplicitTransformer {
+public class EntityLivingBaseTransformer implements IExplicitTransformer, Opcodes {
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
 
     private static final Map<String, Pair<String, String>> onUpdateFieldMap = new HashMap<>(){
@@ -55,14 +55,14 @@ public class EntityLivingBaseTransformer implements IExplicitTransformer {
             if (method.name.equals(moveRelative) || method.name.equals(updateDistance) || method.name.equals(jump)) {
                 String rotationYaw = ObfName.get("rotationYaw", "field_70177_z");
                 for (var node : list) {
-                    if (node.getOpcode() == Opcodes.GETFIELD
+                    if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
                         && fin.name.equals(rotationYaw)
                     ) {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativeYaw",
                                 "(Lnet/minecraft/entity/Entity;)F",
@@ -75,11 +75,11 @@ public class EntityLivingBaseTransformer implements IExplicitTransformer {
             } else if (method.name.equals(onUpdate)) {
                 int count = 0;
                 for (var node : list) {
-                    if (node.getOpcode() == Opcodes.GETFIELD && node instanceof FieldInsnNode fin && onUpdateFieldMap.containsKey(fin.name)) {
+                    if (node.getOpcode() == GETFIELD && node instanceof FieldInsnNode fin && onUpdateFieldMap.containsKey(fin.name)) {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 onUpdateFieldMap.get(fin.name).getLeft(),
                                 onUpdateFieldMap.get(fin.name).getRight(),
@@ -97,11 +97,11 @@ public class EntityLivingBaseTransformer implements IExplicitTransformer {
                 var node = list.getFirst();
                 String getLookVec = ObfName.get("getLookVec", "func_70040_Z");
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL && node instanceof MethodInsnNode min && min.name.equals(getLookVec)) {
+                    if (node.getOpcode() == INVOKEVIRTUAL && node instanceof MethodInsnNode min && min.name.equals(getLookVec)) {
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativeLookVec",
                                 "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/Vec3d;",
@@ -117,11 +117,11 @@ public class EntityLivingBaseTransformer implements IExplicitTransformer {
                 }
                 String rotationPitch = ObfName.get("rotationPitch", "field_70125_A");
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.GETFIELD && node instanceof FieldInsnNode fin && fin.name.equals(rotationPitch)) {
+                    if (node.getOpcode() == GETFIELD && node instanceof FieldInsnNode fin && fin.name.equals(rotationPitch)) {
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativePitch",
                                 "(Lnet/minecraft/entity/Entity;)F",
@@ -137,17 +137,17 @@ public class EntityLivingBaseTransformer implements IExplicitTransformer {
                 }
                 String retain = ObfName.get("retain", "func_185345_c");
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKESTATIC && node instanceof MethodInsnNode min && min.name.equals(retain)) {
+                    if (node.getOpcode() == INVOKESTATIC && node instanceof MethodInsnNode min && min.name.equals(retain)) {
                         node = node.getNext();
                         list.remove(node.getPrevious());
-                        list.insertBefore(node, new InsnNode(Opcodes.POP2));
-                        list.insertBefore(node, new InsnNode(Opcodes.POP2));
-                        list.insertBefore(node, new InsnNode(Opcodes.POP2));
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insertBefore(node, new InsnNode(POP2));
+                        list.insertBefore(node, new InsnNode(POP2));
+                        list.insertBefore(node, new InsnNode(POP2));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getBlockPosBelowEntity",
                                 "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/BlockPos$PooledMutableBlockPos;",
@@ -163,11 +163,11 @@ public class EntityLivingBaseTransformer implements IExplicitTransformer {
                 String getBlockState = ObfName.get("getBlockState", "func_180495_p");
                 int count = 0;
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.GETFIELD && node instanceof FieldInsnNode fin && fin.name.equals(world)) {
+                    if (node.getOpcode() == GETFIELD && node instanceof FieldInsnNode fin && fin.name.equals(world)) {
                         count++;
                         if (count == 3) {
                             node = node.getNext().getNext().getNext();
-                            while (!(node.getOpcode() == Opcodes.INVOKEVIRTUAL && node instanceof MethodInsnNode min && min.name.equals(getBlockState))) {
+                            while (!(node.getOpcode() == INVOKEVIRTUAL && node instanceof MethodInsnNode min && min.name.equals(getBlockState))) {
                                 if (node instanceof FrameNode || node instanceof LabelNode || node instanceof LineNumberNode) {
                                     node = node.getNext();
                                 } else {
@@ -178,7 +178,7 @@ public class EntityLivingBaseTransformer implements IExplicitTransformer {
                             list.insertBefore(
                                 node,
                                 new MethodInsnNode(
-                                    Opcodes.INVOKESTATIC,
+                                    INVOKESTATIC,
                                     HOOKS,
                                     "setPooledMutableBlockPosToBelowEntity",
                                     "(Lnet/minecraft/util/math/BlockPos$PooledMutableBlockPos;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/BlockPos$PooledMutableBlockPos;",
@@ -195,18 +195,18 @@ public class EntityLivingBaseTransformer implements IExplicitTransformer {
                 }
                 String release = ObfName.get("release", "func_185344_t");
                 while (node != null
-                    && !(node.getOpcode() == Opcodes.INVOKEVIRTUAL && node instanceof MethodInsnNode min && min.name.equals(release))
+                    && !(node.getOpcode() == INVOKEVIRTUAL && node instanceof MethodInsnNode min && min.name.equals(release))
                 ) {
                     node = node.getNext();
                 }
                 String posY = ObfName.get("posY", "field_70163_u");
                 count = 0;
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.GETFIELD && node instanceof FieldInsnNode fin && fin.name.equals(posY)) {
+                    if (node.getOpcode() == GETFIELD && node instanceof FieldInsnNode fin && fin.name.equals(posY)) {
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativePosY",
                                 "(Lnet/minecraft/entity/Entity;)D",
@@ -225,13 +225,13 @@ public class EntityLivingBaseTransformer implements IExplicitTransformer {
                 }
                 String limbSwingAmount = ObfName.get("limbSwingAmount", "field_70721_aZ");
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.GETFIELD && node instanceof FieldInsnNode fin && fin.name.equals(limbSwingAmount)) {
+                    if (node.getOpcode() == GETFIELD && node instanceof FieldInsnNode fin && fin.name.equals(limbSwingAmount)) {
                         node = node.getPrevious().getPrevious();
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "makePositionRelative",
                                 "(Lnet/minecraft/entity/EntityLivingBase;)V",
@@ -244,20 +244,20 @@ public class EntityLivingBaseTransformer implements IExplicitTransformer {
                     }
                 }
                 node = list.getLast();
-                while (node.getOpcode() != Opcodes.PUTFIELD) {
+                while (node.getOpcode() != PUTFIELD) {
                     node = node.getPrevious();
                 }
                 list.insert(
                     node,
                     new MethodInsnNode(
-                        Opcodes.INVOKESTATIC,
+                        INVOKESTATIC,
                         HOOKS,
                         "makePositionAbsolute",
                         "(Lnet/minecraft/entity/EntityLivingBase;)V",
                         false
                     )
                 );
-                list.insert(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                list.insert(node, new VarInsnNode(ALOAD, 0));
                 
                 /*
                 var bv = new BasicVerifier();

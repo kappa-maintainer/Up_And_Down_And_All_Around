@@ -15,7 +15,7 @@ import uk.co.mysterymayhem.gravitymod.core.ObfName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EntityTransformer implements IExplicitTransformer {
+public class EntityTransformer implements IExplicitTransformer, Opcodes {
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
     private static final Map<String, String> offsetMap = new HashMap<>(){
         {
@@ -40,14 +40,14 @@ public class EntityTransformer implements IExplicitTransformer {
             String rotationYaw = ObfName.get("rotationYaw", "field_70177_z");
             if (method.name.equals(moveRelative)) {
                 for (var node : list) {
-                    if (node.getOpcode() == Opcodes.GETFIELD
+                    if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
                         && fin.name.equals(rotationYaw)
                     ) {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativeYaw",
                                 "(Lnet/minecraft/entity/Entity;)F",
@@ -61,11 +61,11 @@ public class EntityTransformer implements IExplicitTransformer {
                 var node = list.getFirst();
                 int count = 0;
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && offsetMap.containsKey(min.name)
                     ) {
-                        min.setOpcode(Opcodes.INVOKESTATIC);
+                        min.setOpcode(INVOKESTATIC);
                         min.owner = HOOKS;
                         min.name = offsetMap.get(min.name);
                         min.desc = "(Lnet/minecraft/util/math/AxisAlignedBB;Lnet/minecraft/util/math/AxisAlignedBB;D)D";
@@ -79,7 +79,7 @@ public class EntityTransformer implements IExplicitTransformer {
                 }
                 count = 0;
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.NEW) {
+                    if (node.getOpcode() == NEW) {
                         
                         while (count < 5) {
                             list.remove(node.getNext());
@@ -89,14 +89,14 @@ public class EntityTransformer implements IExplicitTransformer {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getImmutableBlockPosBelowEntity",
                                 "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/BlockPos;",
                                 false
                             )
                         );
-                        list.insert(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insert(node, new VarInsnNode(ALOAD, 0));
                         
                         node = node.getNext();
                         list.remove(node.getPrevious());
@@ -107,15 +107,15 @@ public class EntityTransformer implements IExplicitTransformer {
                 }
                 String down = ObfName.get("down", "func_177977_b");
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && min.name.equals(down)
                     ) {
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativeDownBlockPos",
                                 "(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/BlockPos;")
@@ -129,7 +129,7 @@ public class EntityTransformer implements IExplicitTransformer {
                 }
                 String isRiding = ObfName.get("isRiding", "func_184218_aH");
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && min.name.equals(isRiding)
                     ) {
@@ -137,37 +137,37 @@ public class EntityTransformer implements IExplicitTransformer {
                         count = 0;
                         while (count < 3) {
                             node = node.getNext();
-                            if (node.getOpcode() == Opcodes.DSTORE && node instanceof VarInsnNode vin) {
+                            if (node.getOpcode() == DSTORE && node instanceof VarInsnNode vin) {
                                 vars[count] = vin.var;
                                 count++;
                             }
                         }
-                        while (node.getNext().getOpcode() != Opcodes.GETSTATIC) {
+                        while (node.getNext().getOpcode() != GETSTATIC) {
                             node = node.getNext();
                         }
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
-                        list.insertBefore(node, new VarInsnNode(Opcodes.DLOAD, vars[0]));
-                        list.insertBefore(node, new VarInsnNode(Opcodes.DLOAD, vars[1]));
-                        list.insertBefore(node, new VarInsnNode(Opcodes.DLOAD, vars[2]));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
+                        list.insertBefore(node, new VarInsnNode(DLOAD, vars[0]));
+                        list.insertBefore(node, new VarInsnNode(DLOAD, vars[1]));
+                        list.insertBefore(node, new VarInsnNode(DLOAD, vars[2]));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "inverseAdjustXYZ",
                                 "(Lnet/minecraft/entity/Entity;DDD)[D")
                         );
-                        list.insertBefore(node, new InsnNode(Opcodes.DUP));
-                        list.insertBefore(node, new InsnNode(Opcodes.DUP));
-                        list.insertBefore(node, new InsnNode(Opcodes.ICONST_0));
-                        list.insertBefore(node, new InsnNode(Opcodes.DALOAD));
-                        list.insertBefore(node, new VarInsnNode(Opcodes.DSTORE, vars[0]));
-                        list.insertBefore(node, new InsnNode(Opcodes.ICONST_1));
-                        list.insertBefore(node, new InsnNode(Opcodes.DALOAD));
-                        list.insertBefore(node, new VarInsnNode(Opcodes.DSTORE, vars[1]));
-                        list.insertBefore(node, new InsnNode(Opcodes.ICONST_2));
-                        list.insertBefore(node, new InsnNode(Opcodes.DALOAD));
-                        list.insertBefore(node, new VarInsnNode(Opcodes.DSTORE, vars[2]));
+                        list.insertBefore(node, new InsnNode(DUP));
+                        list.insertBefore(node, new InsnNode(DUP));
+                        list.insertBefore(node, new InsnNode(ICONST_0));
+                        list.insertBefore(node, new InsnNode(DALOAD));
+                        list.insertBefore(node, new VarInsnNode(DSTORE, vars[0]));
+                        list.insertBefore(node, new InsnNode(ICONST_1));
+                        list.insertBefore(node, new InsnNode(DALOAD));
+                        list.insertBefore(node, new VarInsnNode(DSTORE, vars[1]));
+                        list.insertBefore(node, new InsnNode(ICONST_2));
+                        list.insertBefore(node, new InsnNode(DALOAD));
+                        list.insertBefore(node, new VarInsnNode(DSTORE, vars[2]));
                         
                         break out;
                     } else {

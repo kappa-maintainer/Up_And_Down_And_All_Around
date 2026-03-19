@@ -7,7 +7,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import top.outlands.foundation.IExplicitTransformer;
 
-public class SuperClassReplacingTransformer implements IExplicitTransformer {
+public class SuperClassReplacingTransformer implements IExplicitTransformer, Opcodes {
     private static final String classToReplace = "net/minecraft/entity/player/EntityPlayer";
     private static final String classReplacement = "uk/co/mysterymayhem/gravitymod/asm/EntityPlayerWithGravity";
     @Override
@@ -21,7 +21,7 @@ public class SuperClassReplacingTransformer implements IExplicitTransformer {
 
     private static class CV extends ClassVisitor {
         public CV(ClassVisitor cv) {
-            super(Opcodes.ASM9, cv);
+            super(ASM9, cv);
         }
 
         @Override
@@ -55,7 +55,7 @@ public class SuperClassReplacingTransformer implements IExplicitTransformer {
 
     private static class MV extends MethodVisitor {
         public MV(MethodVisitor mv) {
-            super(Opcodes.ASM9, mv);
+            super(ASM9, mv);
         }
 
         @Override

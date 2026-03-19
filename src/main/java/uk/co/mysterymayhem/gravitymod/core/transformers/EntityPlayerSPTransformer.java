@@ -16,7 +16,7 @@ import org.objectweb.asm.tree.VarInsnNode;
 import top.outlands.foundation.IExplicitTransformer;
 import uk.co.mysterymayhem.gravitymod.core.ObfName;
 
-public class EntityPlayerSPTransformer implements IExplicitTransformer {
+public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes {
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
 
     @Override
@@ -37,12 +37,12 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                 String minY = ObfName.get("minY", "field_72338_b");
                 String posY = ObfName.get("posY", "field_70163_u");
                 for (var node : list) {
-                    if (node.getOpcode() == Opcodes.GETFIELD
+                    if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
                         && fin.name.equals(minY)
                     ) {
                         if (node.getPrevious() instanceof VarInsnNode vin
-                            && vin.getOpcode() == Opcodes.ALOAD
+                            && vin.getOpcode() == ALOAD
                         ) {
                             vin.var = 0;
                             fin.name = posY;
@@ -59,21 +59,21 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                            double d0 = x - blockpos.getX();
                  */
                 for (var node : list) {
-                    if (node.getOpcode() == Opcodes.INVOKESPECIAL
+                    if (node.getOpcode() == INVOKESPECIAL
                         && node instanceof MethodInsnNode min
                         && min.owner.equals("net/minecraft/util/math/BlockPos")
                     ) {
                         list.insert(
                             min,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "makeRelativeBlockPos",
                                 "(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/BlockPos;",
                                 false
                             )
                         );
-                        list.insert(min, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insert(min, new VarInsnNode(ALOAD, 0));
                         break;
                     }
                 }
@@ -96,16 +96,16 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     if (node instanceof LabelNode labelNode) {
                         temp = labelNode;
                     }
-                    if (store == null && node.getOpcode() == Opcodes.ASTORE && node instanceof VarInsnNode vin) {
+                    if (store == null && node.getOpcode() == ASTORE && node instanceof VarInsnNode vin) {
                         store = vin;
                     }
-                    if (node.getOpcode() == Opcodes.NEW
+                    if (node.getOpcode() == NEW
                         && node instanceof TypeInsnNode tin
                         && tin.desc.equals("net/minecraftforge/client/event/PlayerSPPushOutOfBlocksEvent")
                     ) {
                         postEventBlock = temp;
                     }
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && (min.name.equals("getFoodStats") || min.name.equals("func_71024_bL"))
                     ) {
@@ -117,26 +117,26 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     throw new RuntimeException("Transform failed in " + this.getClass().getName() + "'s onLivingUpdate");
                 }
                 InsnList tempList = new InsnList();
-                tempList.add(new VarInsnNode(Opcodes.ALOAD, store.var));
+                tempList.add(new VarInsnNode(ALOAD, store.var));
                 tempList.add(
                     new TypeInsnNode(
-                        Opcodes.INSTANCEOF,
+                        INSTANCEOF,
                         "uk/co/mysterymayhem/gravitymod/common/util/boundingboxes/GravityAxisAlignedBB"
                     )
                 );
-                tempList.add(new JumpInsnNode(Opcodes.IFEQ, postEventBlock));
-                tempList.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                tempList.add(new VarInsnNode(Opcodes.ALOAD, store.var));
+                tempList.add(new JumpInsnNode(IFEQ, postEventBlock));
+                tempList.add(new VarInsnNode(ALOAD, 0));
+                tempList.add(new VarInsnNode(ALOAD, store.var));
                 tempList.add(
                     new MethodInsnNode(
-                        Opcodes.INVOKESTATIC,
+                        INVOKESTATIC,
                         HOOKS,
                         "pushEntityPlayerSPOutOfBlocks",
                         "(Luk/co/mysterymayhem/gravitymod/asm/EntityPlayerWithGravity;Lnet/minecraft/util/math/AxisAlignedBB;)V",
                         false
                     )
                 );
-                tempList.add(new JumpInsnNode(Opcodes.GOTO, getFoodStatsBlock));
+                tempList.add(new JumpInsnNode(GOTO, getFoodStatsBlock));
 
                 list.insert(store, tempList);
             } else if (method.name.equals("isHeadspaceFree")) {
@@ -146,27 +146,27 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                         for (int y = 0; y < height; y++) {
                  */
                 for (var node : list) {
-                    if (node.getOpcode() == Opcodes.ICONST_0) {
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 1));
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                    if (node.getOpcode() == ICONST_0) {
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 1));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "makeRelativeBlockPos",
                                 "(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/BlockPos;",
                                 false
                             )
                         );
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ASTORE, 1));
+                        list.insertBefore(node, new VarInsnNode(ASTORE, 1));
                         break;
                     }
                 }
             } else if (method.name.equals(updateAutoJump)) {
                 var node = list.getFirst();
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.NEW
+                    if (node.getOpcode() == NEW
                         && node instanceof TypeInsnNode tin
                         && tin.desc.equals("net/minecraft/util/math/Vec3d")
                     ) {
@@ -174,11 +174,11 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                             node = node.getNext();
                             list.remove(node.getPrevious());
                         }
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getBottomOfEntity",
                                 "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/Vec3d;",
@@ -191,14 +191,14 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.GETFIELD
+                    if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
                         && (fin.name.equals("posX") || fin.name.equals("field_70165_t"))
                     ) {
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getOriginRelativePosX",
                                 "(Lnet/minecraft/entity/Entity;)D",
@@ -213,7 +213,7 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && (min.name.equals("getEntityBoundingBox") || min.name.equals("func_174813_aQ"))
                     ) {
@@ -221,7 +221,7 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getOriginRelativePosY",
                                 "(Lnet/minecraft/entity/Entity;)D",
@@ -236,14 +236,14 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.GETFIELD
+                    if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
                         && (fin.name.equals("posZ") || fin.name.equals("field_70161_v"))
                     ) {
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getOriginRelativePosZ",
                                 "(Lnet/minecraft/entity/Entity;)D",
@@ -258,18 +258,18 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKESPECIAL) {
+                    if (node.getOpcode() == INVOKESPECIAL) {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "adjustVec",
                                 "(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/Vec3d;",
                                 false
                             )
                         );
-                        list.insert(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insert(node, new VarInsnNode(ALOAD, 0));
                         break;
                     } else {
                         node = node.getNext();
@@ -277,14 +277,14 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                 }
                 int count = 0;
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.GETFIELD
+                    if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
                         && (fin.name.equals("rotationYaw") || fin.name.equals("field_70177_z"))
                     ) {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativeYaw",
                                 "(Lnet/minecraft/entity/Entity;)F",
@@ -301,14 +301,14 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && (min.name.equals("getForward") || min.name.equals("func_189651_aD"))
                     ) {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativeLookVec",
                                 "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/Vec3d;",
@@ -323,35 +323,35 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.ASTORE && node instanceof VarInsnNode vin && vin.var == 13) {
-                        while (node.getPrevious().getOpcode() != Opcodes.NEW) {
+                    if (node.getOpcode() == ASTORE && node instanceof VarInsnNode vin && vin.var == 13) {
+                        while (node.getPrevious().getOpcode() != NEW) {
                             list.remove(node.getPrevious());
                         }
                         list.remove(node.getPrevious());
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getBlockPosAtTopOfPlayer",
                                 "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/BlockPos;",
                                 false
                             )
                         );
-                        list.insert(node, new VarInsnNode(Opcodes.ASTORE, 10));
+                        list.insert(node, new VarInsnNode(ASTORE, 10));
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "adjustVec",
                                 "(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/Vec3d;",
                                 false
                             )
                         );
-                        list.insert(node, new VarInsnNode(Opcodes.ALOAD, 0));
-                        list.insert(node, new VarInsnNode(Opcodes.ALOAD, 10));
+                        list.insert(node, new VarInsnNode(ALOAD, 0));
+                        list.insert(node, new VarInsnNode(ALOAD, 10));
                         break;
                     } else {
                         node = node.getNext();
@@ -359,14 +359,14 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                 }
                 node = commonGetRelativeUpPatch(node, list);
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.NEW
+                    if (node.getOpcode() == NEW
                         && node instanceof TypeInsnNode tin
                         && tin.desc.equals("net/minecraft/util/math/AxisAlignedBB")
                     ) {
                         node = node.getNext().getNext();
                         list.remove(node.getPrevious());
                         list.remove(node.getPrevious());
-                        while (node.getNext().getOpcode() != Opcodes.INVOKEVIRTUAL) {
+                        while (node.getNext().getOpcode() != INVOKEVIRTUAL) {
                             node = node.getNext();
                         }
                         list.remove(node.getNext());
@@ -374,25 +374,25 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "constructNewGAABBFrom2Vec3d",
                                 "(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/AxisAlignedBB;",
                                 false
                             )
                         );
-                        list.insert(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insert(node, new VarInsnNode(ALOAD, 0));
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "addAdjustedVector",
                                 "(Lnet/minecraft/util/math/Vec3d;DDDLnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/Vec3d;",
                                 false
                             )
                         );
-                        list.insert(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insert(node, new VarInsnNode(ALOAD, 0));
                         break;
                     } else {
                         node = node.getNext();
@@ -400,15 +400,15 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                 }
                 count = 0;
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && (min.name.equals("add") || min.name.equals("func_178787_e"))
                     ) {
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "addAdjustedVector",
                                 "(Lnet/minecraft/util/math/Vec3d;DDDLnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/Vec3d;",
@@ -425,42 +425,42 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.DCONST_1 && node instanceof InsnNode) {
+                    if (node.getOpcode() == DCONST_1 && node instanceof InsnNode) {
                         node = node.getNext();
                         list.remove(node.getPrevious());
-                        list.insertBefore(node, new InsnNode(Opcodes.DCONST_0));
-                        while (node.getOpcode() != Opcodes.INVOKESPECIAL) {
+                        list.insertBefore(node, new InsnNode(DCONST_0));
+                        while (node.getOpcode() != INVOKESPECIAL) {
                             node = node.getNext();
                         }
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "addAdjustedVector",
                                 "(Lnet/minecraft/util/math/Vec3d;DDDLnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/Vec3d;",
                                 false
                             )
                         );
-                        list.insert(node, new VarInsnNode(Opcodes.ALOAD, 0));
-                        list.insert(node, new InsnNode(Opcodes.DCONST_0));
-                        list.insert(node, new InsnNode(Opcodes.DCONST_1));
-                        list.insert(node, new InsnNode(Opcodes.DCONST_0));
+                        list.insert(node, new VarInsnNode(ALOAD, 0));
+                        list.insert(node, new InsnNode(DCONST_0));
+                        list.insert(node, new InsnNode(DCONST_1));
+                        list.insert(node, new InsnNode(DCONST_0));
                         break;
                     } else {
                         node = node.getNext();
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.GETFIELD
+                    if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
                         && (fin.name.equals("maxY") || fin.name.equals("field_72337_e"))
                     ) {
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativeTopOfBB",
                                 "(Lnet/minecraft/util/math/AxisAlignedBB;Lnet/minecraft/entity/Entity;)D",
@@ -475,21 +475,21 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && (min.name.equals("up") || min.name.equals("func_177984_a"))
                     ) {
                         list.insert(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativeUpBlockPos",
                                 "(Lnet/minecraft/util/math/BlockPos;ILnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/BlockPos;",
                                 false
                             )
                         );
-                        list.insert(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insert(node, new VarInsnNode(ALOAD, 0));
                         node = node.getNext();
                         list.remove(node.getPrevious());
                         break;
@@ -498,15 +498,15 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.GETFIELD
+                    if (node.getOpcode() == GETFIELD
                         && node instanceof FieldInsnNode fin
                         && (fin.name.equals("maxY") || fin.name.equals("field_72337_e"))
                     ) {
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativeTopOfBB",
                                 "(Lnet/minecraft/util/math/AxisAlignedBB;Lnet/minecraft/entity/Entity;)D",
@@ -521,15 +521,15 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
                     }
                 }
                 while (node != null) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && (min.name.equals("getY") || min.name.equals("func_177956_o"))
                     ) {
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                        list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "getRelativeYOfBlockPos",
                                 "(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)I",
@@ -557,21 +557,21 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
     
     private AbstractInsnNode commonGetRelativeUpPatch(AbstractInsnNode node, InsnList list) {
         while (node != null) {
-            if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+            if (node.getOpcode() == INVOKEVIRTUAL
                 && node instanceof MethodInsnNode min
                 && (min.name.equals("up") || min.name.equals("func_177984_a"))
             ) {
                 list.insert(
                     node,
                     new MethodInsnNode(
-                        Opcodes.INVOKESTATIC,
+                        INVOKESTATIC,
                         HOOKS,
                         "getRelativeUpBlockPos",
                         "(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/BlockPos;",
                         false
                     )
                 );
-                list.insert(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                list.insert(node, new VarInsnNode(ALOAD, 0));
                 node = node.getNext();
                 list.remove(node.getPrevious());
                 break;
@@ -584,15 +584,15 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer {
     
     private AbstractInsnNode commonGetRelativeBottomOfBBPatch(AbstractInsnNode node, InsnList list) {
         while (node != null) {
-            if (node.getOpcode() == Opcodes.GETFIELD
+            if (node.getOpcode() == GETFIELD
                 && node instanceof FieldInsnNode fin
                 && (fin.name.equals("minY") || fin.name.equals("field_72338_b"))
             ) {
-                list.insertBefore(node, new VarInsnNode(Opcodes.ALOAD, 0));
+                list.insertBefore(node, new VarInsnNode(ALOAD, 0));
                 list.insertBefore(
                     node,
                     new MethodInsnNode(
-                        Opcodes.INVOKESTATIC,
+                        INVOKESTATIC,
                         HOOKS,
                         "getRelativeBottomOfBB",
                         "(Lnet/minecraft/util/math/AxisAlignedBB;Lnet/minecraft/entity/Entity;)D",

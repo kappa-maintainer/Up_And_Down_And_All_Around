@@ -10,7 +10,7 @@ import org.objectweb.asm.tree.VarInsnNode;
 import top.outlands.foundation.IExplicitTransformer;
 import uk.co.mysterymayhem.gravitymod.core.ObfName;
 
-public class EntityRendererTransformer implements IExplicitTransformer {
+public class EntityRendererTransformer implements IExplicitTransformer, Opcodes {
     private static final String HOOKS = "uk/co/mysterymayhem/gravitymod/asm/Hooks";
     @Override
     public byte[] transform(byte[] bytes) {
@@ -25,11 +25,11 @@ public class EntityRendererTransformer implements IExplicitTransformer {
                 InsnList list = method.instructions;
                 String getEntityBoundingBox = ObfName.get("getEntityBoundingBox", "func_174813_aQ");
                 for (var node : list) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && min.name.equals(getEntityBoundingBox)
                     ) {
-                        min.setOpcode(Opcodes.INVOKESTATIC);
+                        min.setOpcode(INVOKESTATIC);
                         min.name = "getVanillaEntityBoundingBox";
                         min.owner = HOOKS;
                         min.desc = "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/AxisAlignedBB;";
@@ -41,15 +41,15 @@ public class EntityRendererTransformer implements IExplicitTransformer {
                 InsnList list = method.instructions;
                 String disableLighting = ObfName.get("disableLighting", "func_179140_f");
                 for (var node : list) {
-                    if (node.getOpcode() == Opcodes.INVOKESTATIC
+                    if (node.getOpcode() == INVOKESTATIC
                         && node instanceof MethodInsnNode min
                         && min.name.equals(disableLighting)
                     ) {
-                        list.insertBefore(node, new VarInsnNode(Opcodes.ILOAD, 8));
+                        list.insertBefore(node, new VarInsnNode(ILOAD, 8));
                         list.insertBefore(
                             node,
                             new MethodInsnNode(
-                                Opcodes.INVOKESTATIC,
+                                INVOKESTATIC,
                                 HOOKS,
                                 "runNameplateCorrection",
                                 "(Z)V",

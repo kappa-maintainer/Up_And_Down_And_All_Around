@@ -12,7 +12,7 @@ import top.outlands.foundation.IExplicitTransformer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NetHandlerPlayClientTransformer implements IExplicitTransformer {
+public class NetHandlerPlayClientTransformer implements IExplicitTransformer, Opcodes {
     private static final Map<String, String> fieldMap = new HashMap<>() {
         {
             put("minY", "posY");
@@ -31,7 +31,7 @@ public class NetHandlerPlayClientTransformer implements IExplicitTransformer {
             {
                 InsnList list = method.instructions;
                 for (var node : list) {
-                    if (node.getOpcode() == Opcodes.INVOKEVIRTUAL
+                    if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
                         && (min.name.equals("getEntityBoundingBox") || min.name.equals("func_174813_aQ"))
                     ) {
