@@ -13,7 +13,14 @@ import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
+import org.objectweb.asm.tree.analysis.Analyzer;
+import org.objectweb.asm.tree.analysis.AnalyzerException;
+import org.objectweb.asm.tree.analysis.BasicValue;
+import org.objectweb.asm.tree.analysis.BasicVerifier;
+import org.objectweb.asm.tree.analysis.SimpleVerifier;
 import top.outlands.foundation.IExplicitTransformer;
+import uk.co.mysterymayhem.gravitymod.core.FMLLoadingPlugin;
+import uk.co.mysterymayhem.gravitymod.core.InsnPrinter;
 import uk.co.mysterymayhem.gravitymod.core.ObfName;
 
 public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes {
@@ -405,7 +412,7 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                     }
                 }
                 count = 0;
-                String add = ObfName.get("add", "func_178787_e");
+                String add = ObfName.get("add", "func_72441_c");
                 while (node != null) {
                     if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
@@ -424,7 +431,7 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                         );
                         node = node.getNext();
                         list.remove(node.getPrevious());
-                        if (++count >= 2) {
+                        if (++count == 2) {
                             break;
                         }
                     } else {
@@ -482,7 +489,7 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                         node = node.getNext();
                     }
                 }
-                String up = ObfName.get("up", "func_177984_a");
+                String up = ObfName.get("up", "func_177981_b");
                 while (node != null) {
                     if (node.getOpcode() == INVOKEVIRTUAL
                         && node instanceof MethodInsnNode min
@@ -556,6 +563,19 @@ public class EntityPlayerSPTransformer implements IExplicitTransformer, Opcodes 
                 node = commonGetRelativeBottomOfBBPatch(node, list);
                 node = commonGetRelativeUpPatch(node, list);
                 commonGetRelativeBottomOfBBPatch(node, list);
+                /*
+                var sv = new BasicVerifier();
+                Analyzer<BasicValue> analyzer = new Analyzer<>(sv);
+                try {
+                    analyzer.analyze(classNode.name, method);
+                } catch (AnalyzerException e) {
+                    InsnPrinter.printMethod(method);
+                    FMLLoadingPlugin.logger.info("=========================================================");
+                    FMLLoadingPlugin.logger.info(InsnPrinter.prettyPrint(e.node.getPrevious()));
+                    FMLLoadingPlugin.logger.info(InsnPrinter.prettyPrint(e.node));
+                    FMLLoadingPlugin.logger.info(InsnPrinter.prettyPrint(e.node.getNext()));
+                    throw new RuntimeException(e);
+                }*/
                 break;
             }
         }

@@ -23,6 +23,8 @@ public class InsnPrinter {
     }
     
     public static void printMethod(MethodNode methodNode) {
-        methodNode.instructions.forEach(n -> FMLLoadingPlugin.logger.info(prettyPrint(n)));
+        for (int i = 0; i < methodNode.instructions.size(); i++) {
+            FMLLoadingPlugin.logger.info("{} : {}", i, prettyPrint(methodNode.instructions.get(i)));
+        }
     }
 }
